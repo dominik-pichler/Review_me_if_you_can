@@ -1,4 +1,4 @@
-# Know_Thy_Data
+# Knowledge Graphs for the win! 
 
 ```
        .--.                   .---.
@@ -12,9 +12,8 @@
 |  |===|--|   \.'\|===|~|--|%%|~~~|--|
 ^--^---'--^    `-'`---^-^--^--^---'--' 
 ```
-** Knowledge Graphs for the win! **
+Knowledge is power but, unfortunately, time is limited and life is too short to read all great books. 
+Hence, I let computers read for me - Join now and watch me do it
 
-Unfortunately, time is limited and life is to short to read all great books. 
-Hence, I let computers read for me: 
 
 # TBD
