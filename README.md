@@ -46,14 +46,14 @@ In order to create KGs, initially an (RDB) ABT according to the following Object
 
 
 Thereby the ABT consists of the following columns: 
-- Booking_ID  **(Primary Key)**
-- Duration [Float]
-- Start_date_of_stay [Time Stamp]
-- Booker [STRING]
-- Guests [STRING]
-- Appartement
-- Cleaner
-- Review Text
+- Booking_ID         *[Int]* **(Primary Key)**
+- Duration           *[Float]*
+- Start_date_of_stay *[Time Stamp]*
+- Booker             *[STRING]*
+- Guests             *[STRING]*
+- Appartement        *[STRING]*
+- Cleaner            *[STRING]*
+- Review Text        *[TEXT]*
 
 The proposed sentiment scores are determined in the adapter using the `sentiment_model.py`
 For this demonstration purpose, the production data has been used and been anonymized using `data_anonimizer.py`.
