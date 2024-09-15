@@ -58,8 +58,12 @@ that have been derived (as depicted later on in the architecture section) from t
 1. **KROSS**: A plattform that works as datahub for the management of hotels/appartements. In this case, it is used to get access to all booking relevant data
 2. **TimeTac**: A plattform that allows to track process times of (cleaning) people. In this case, it is being used to track/access data on how has cleaned which appartement when.
 
+For this demonstration purpose, the production data has been used and been anonymized using `data_anonimizer.py` and stored in `data\demo_data.csv`
+
+
 ### Architecture
 This application utilizes data that has been fetched from KROSS and TimeTac via their internal APIs  is currently stored in a AWS RDS in multiple tables using the architecture displayed below:
+<br>
 ![Application_Architecture.png](drawings/Application_Architecture.png)
 
 <br>
@@ -91,13 +95,14 @@ In addition it provides a strong architectural backbone for all kind of ML-Appli
 - OrientDB
 - ....
 
-While each DB provided individual Advantages and Disadvantages, Neo4j was convincing, mainly due to it's great support for graph data structure, Cypher's amazing syntax, the efficient querying and the docker support, leading to great flexibility, solid performance, and eas of use that was really appealing.
+
+
+While each DB provided individual advantages and disadvantages, Neo4j was convincing for this project, mainly due to it's great support for graph data structure, Cypher's amazing syntax, the efficient querying and the docker support, leading to great flexibility, solid performance, and eas of use that was really appealing.
 The opportunity to add Neo4j in a docker container to the existing technical infrastructure in AWS (leveraging EC2) underlines the flexibility and scalability of this technology.
 
 
 
-For this demonstration purpose, the production data has been used and been anonymized using `data_anonimizer.py` and stored in `data\demo_data.csv`
 
 
 
-
+Eventually **PyTorch Geometric** was choosen over other Frameworks like DGl and Graphnets 
