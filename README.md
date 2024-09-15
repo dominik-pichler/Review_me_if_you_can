@@ -77,7 +77,7 @@ In the meantime, an adapter (running on-premise as docker container), is daily f
 After that, the data gets transformed into a graph-structure and then added to an on-premise Neo4J Database (Dockerized) to store the KG.
 
 Through this procedure described above, the KG is continuously fed with the newest data available and therefore constantly evolving.
-![KG_Architecture.png](KG_Architecture.png)
+![KG_Architecture.png](drawings/KG_Architecture.png)
 
 <br>
 
