@@ -35,12 +35,28 @@ and in addition, a graph query console will maybe be integrated
 ### Architecture
 This application utilizes data that has been fetched from KROSS Booking and TimeTac via their internal APIs and that is currently stored in a AWS RDS in multiple tables using the architecture displayed below: 
 
-![Application_Architecture.png](Application_Architecture.png)
+![Application_Architecture.png](drawings/Application_Architecture.png)
+
+<br>
+
 
 In order to create KGs, initially an (RDB) ABT according to the following Object Model has been created using `SQL` and is then parsed and inserted into a Neo4J Graph Database that runs inside a docker container: 
 
 ![KG_Architecture.png](KG_Architecture.png )
 
+
+Thereby the ABT consists of the following columns: 
+- Booking_ID  **(Primary Key)**
+- Duration [Float]
+- Start_date_of_stay [Time Stamp]
+- Booker [STRING]
+- Guests [STRING]
+- Appartement
+- Cleaner
+- Review Text
+
+The proposed sentiment scores are determined in the adapter using the `sentiment_model.py`
+For this demonstration purpose, the production data has been used and been anonymized using `data_anonimizer.py`.
 
 
 
