@@ -66,13 +66,36 @@ This application utilizes data that has been fetched from KROSS and TimeTac via 
 <br>
 
 
-In order to create KGs, initially an (RDB) ABT according to the following Object Model has been created using `SQL` and is then parsed and inserted into a Neo4J Graph Database that runs inside a docker container: 
+Original the data is being fetched from the two API's utilizing a python script (`ADD ME `) that runs in a AWS Lamda that is being executed once per day.
+The data fetched, is then stored in extraction tables in an PostGres DB stored in AWS RDS (serving as central source of truth) and then automatically (via AWS Lamda again) processed into the bespoken ABT.
 
-![KG_Architecture.png](KG_Architecture.png )
+In the meantime, an adapter (running on-premise as docker container), is daily fetching new booking data in the ABT, sends the reviews to a sentiment model (`sentiment_model.py`) that returns sentiment scores for each review.
+After that, the data gets transformed into a graph-structure and then added to an on-premise Neo4J Database (Dockerized) to store the KG.
+
+Through this procedure described above, the KG is continuously fed with the newest data available and therefore constantly evolving.
+![KG_Architecture.png](KG_Architecture.png)
 
 <br>
 
-The proposed sentiment scores are determined in the adapter using the `sentiment_model.py`
+### Technologies used: 
+Starting out, the **AWS Suite** (running Python and PostGRES) was chosen for data fetching, job scheduling and classic RDBS (using PostGRES as Single Source of Truth). 
+Part of the decision for this technology suit was it's general purpose, high scalability and wide array of utilities. 
+In addition it provides a strong architectural backbone for all kind of ML-Application, being it classic, or graph based, allowing them to flourish in harmony and synergy.
+
+
+**Neo4j** was then chose as a database for storing the built Knowledge Graph(s), while other database have been investigated, some being: 
+- Amazons's own solution - Neptune
+- Microsoft's Azure Cosmos DB
+- Dgraph
+- ArangoDB
+- OrientDB
+- ....
+
+While each DB provided individual Advantages and Disadvantages, Neo4j was convincing, mainly due to it's great support for graph data structure, Cypher's amazing syntax, the efficient querying and the docker support, leading to great flexibility, solid performance, and eas of use that was really appealing.
+The opportunity to add Neo4j in a docker container to the existing technical infrastructure in AWS (leveraging EC2) underlines the flexibility and scalability of this technology.
+
+
+
 For this demonstration purpose, the production data has been used and been anonymized using `data_anonimizer.py` and stored in `data\demo_data.csv`
 
 
