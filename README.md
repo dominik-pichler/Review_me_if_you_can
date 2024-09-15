@@ -105,4 +105,6 @@ The opportunity to add Neo4j in a docker container to the existing technical inf
 
 
 
-Eventually **PyTorch Geometric** was choosen over other Frameworks like DGl and Graphnets 
+Eventually **PyTorch Geometric** was choosen over other Frameworks like DGl and Graphnets
+# TO READ:
+ https://distill.pub/2021/gnn-intro/
