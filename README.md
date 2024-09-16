@@ -46,10 +46,7 @@ The ABT (Analytical Base Table) consists of the following columns:
 | Column Name         | Data Type      | Source |
 |---------------------|----------------|--------|
 | Booking_ID  (PK)    | INT            | KROSS        |
-| Duration_of_stay    | FLOAT          |  KROSS      |
 | Start_date_of_stay  | TIME STAMP     |  KROSS      |
-| Booker              | STRING         |  KROSS      |
-| Guests              | STRING         |  KROSS      |
 | Appartement         | STRING         |  KROSS      |
 | Cleaner             | STRING         |  TIMETAC      |
 | Review Text         | TEXT           |  KROSS      |
