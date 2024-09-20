@@ -18,6 +18,15 @@
 ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ```
 
+# How to use: 
+Start the Neo4j database via 
+```shell
+docker-compose up -d
+docker exec -it main bash
+```
+
+# About
+
 ## 1. Scenario
 Short-Term Renting business is hard, but without the right monitoring tools for customer satisfaction, it is even harder(then it has to be).
 This Repo utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in identifying problems regarding their cleaning services. 
@@ -75,16 +84,31 @@ For advanced analytics, the collected reviews have been analyzed with modern NLP
 
 This eventually yielded the following additional review data for the knowledge graph: 
 
-| Column Name              | Data Type |
-|--------------------------|-----------|
-| Booking_ID  (PK)         | INT       |
-| Review_Text              | TEXT      |  
-| Sentiment Scores         | TEXT      | 
-| Issue_Entities           | TEXT      |  
-| Issue_Entities_Adjectives | TEXT      | 
+| Column Name                | Data Type |
+|----------------------------|-----------|
+| Booking_ID  (PK)           | INT       |
+| Review_Text                | TEXT      |  
+| Sentiment Scores           | TEXT      | 
+| Issue_Entities             | TEXT      |  
+| Issue_Entities_Adjectives  | TEXT      | 
 
 For simplification purposes this table is also stored in the AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB or AWS Dynamo DB could be made, but
 due to the limited scope of this project I have decided to keep the overhead low and not setup another DB.
+
+
+
+Eventually, this results in the following ABT `BASE_TABLE_KG_GENERATION` that will be used for building the Knowledge Graph: 
+
+| Column Name               | Data Type  | Source    |
+|---------------------------|------------|-----------|
+| Booking_ID  (PK)          | INT        | KROSS     |
+| Start_date_of_stay        | TIME STAMP | KROSS     |
+| Appartement               | STRING     | KROSS     |
+| Cleaner                   | STRING     | TIMETAC   |
+| Review Text               | TEXT       | KROSS     |
+| Sentiment Scores          | TEXT       | ML Model  |
+| Issue_Entities            | TEXT       | ML Model  |
+| Issue_Entities_Adjectives | TEXT       | ML_Model  | 
 
 
 
@@ -139,7 +163,16 @@ The opportunity to add Neo4j in a docker container to the existing technical inf
 
 
 ### Building the knowledge Graph: 
+As introduced before, the `BASE_TABLE_KG_GENERATION` Table will be used as a starting point for the generation of a  **Knowledge Graph**
+In order to do so, the data of the table above will be transformed into a Knowledge Graph based on the Ontology sketched in *Image 2*.
+This has been achieved with the help of `KG_Building_Handler.py` that sets up the KG and continiously integrates new data into it.
 
+
+
+
+### Logic Based Reasoning on the KG
+
+### GNNs on the KG
 
 
 Eventually **PyTorch Geometric** was choosen over other Frameworks like DGl and Graphnets

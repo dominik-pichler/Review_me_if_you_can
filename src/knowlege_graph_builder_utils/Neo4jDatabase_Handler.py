@@ -1,7 +1,9 @@
 from neo4j import GraphDatabase
 import pandas as pd
+
 # Define the connection URI
 uri = "bolt://localhost:7687"  # Default port for Bolt protocol
+
 
 # Define a class to handle Neo4j interactions
 class Neo4jDatabase_Handler:
@@ -11,7 +13,7 @@ class Neo4jDatabase_Handler:
     def close(self):
         self.driver.close()
 
-    def populate_data(self,data:pd.DataFrame):
+    def populate_data(self, data: pd.DataFrame):
         with self.driver.session() as session:
             session.write_transaction(self._create_data)
 
@@ -24,6 +26,7 @@ class Neo4jDatabase_Handler:
         tx.run("CREATE (a)-[:FRIENDS_WITH]->(b)")
         tx.run("CREATE (b)-[:FRIENDS_WITH]->(c)")
         tx.run("CREATE (c)-[:FRIENDS_WITH]->(a)")
+
 
 if __name__ == "__main__":
     # Initialize the Neo4j database handler
