@@ -95,6 +95,8 @@ For this demonstration purpose, the production data has been used and been anony
 ### Architecture
 This application utilizes data that has been fetched from KROSS and TimeTac via their internal APIs  is currently stored in a AWS RDS in multiple tables using the architecture displayed below:
 <br>
+<br>
+<br>
 ![Application_Architecture.png](drawings/Application_Architecture.png)
 
 <br>
