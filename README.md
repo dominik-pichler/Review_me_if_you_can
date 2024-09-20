@@ -19,11 +19,13 @@ ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ```
 
 # How to use: 
-Start the Neo4j database via 
+Start the Neo4j database via: 
 ```shell
 docker-compose up -d
-docker exec -it main bash
 ```
+
+Visit http://localhost:7474/browser/ and enjoy the show
+
 
 # About
 
@@ -165,14 +167,57 @@ The opportunity to add Neo4j in a docker container to the existing technical inf
 ### Building the knowledge Graph: 
 As introduced before, the `BASE_TABLE_KG_GENERATION` Table will be used as a starting point for the generation of a  **Knowledge Graph**
 In order to do so, the data of the table above will be transformed into a Knowledge Graph based on the Ontology sketched in *Image 2*.
-This has been achieved with the help of `KG_Building_Handler.py` that sets up the KG and continiously integrates new data into it.
+This has been achieved with the help of `KG_Building_Handler.py` that sets up the KG and continuously integrates new data into it. In order to be able to potentially manage multiple KG's, each KG is built inside an own Schema.
+For further separation, multipe instances can be created due to the Docker based architecture.
 
 
 
 
-### Logic Based Reasoning on the KG
 
-### GNNs on the KG
+## 3. Logic Based Reasoning on the KG
+
+To start out, I want to connect all nodes that share the same node name by running the following `Cypher` Query
+```cypher
+MATCH (a), (b)
+WHERE id(a) < id(b)
+CREATE (a)-[:CONNECTED_TO]->(b)
+```
+
+
+After that, I want ot identify the most dense regions in the graph: 
+
+```cypher
+MATCH (n)-[r]->(m)
+WITH n, count(r) AS degree
+WHERE degree > 3 // Adjust threshold based on your data
+RETURN n, degree
+ORDER BY degree DESC
+```
+
+Following up, I want to figure out if certain cleaners are linked more often/central nodes to worse than average customer ratings.
+I identified this via: 
+
+```
+TO BE DONE
+```
+
+
+
+## 4. GNNs on the KG
+The first analysis concerns the high density regions, and hence grouping, meaning, I want know if the entire graph can be clustered into interesting clusters
+For this task, serveral GNN Architectures have been found useful in the past.
+Some of them are: 
+- **Just Balance GNN**: 
+  This model simplifies the clustering objective by using a minimalist unsupervised loss that focuses on balancing cluster size
+- **Deep Modularity Networks**:
+  This approach uses an unsupervised pooling method inspired by modularity measures to recover high-quality clusters
+- **ClusterGNN**:
+  A coarse-to-fine method that establishes local graphs for feature matching, reducing redundant information spread
+
+
+With the help of `PyTorch Geometric` I then implemented 
+
+
 
 
 Eventually **PyTorch Geometric** was choosen over other Frameworks like DGl and Graphnets
