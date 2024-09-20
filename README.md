@@ -42,7 +42,9 @@ and in addition, a graph query console will maybe be integrated to where the use
 ## 2. KG Construction 
 
 ### Data Source
-The ABT (Analytical Base Table) consists of the following columns: 
+
+#### Analytical Base Table
+The ABT consists of the following columns: 
 | Column Name         | Data Type      | Source |
 |---------------------|----------------|--------|
 | Booking_ID  (PK)    | INT            | KROSS        |
@@ -55,6 +57,38 @@ that have been derived (as depicted later on in the architecture section) from t
 1. **KROSS**: A plattform that works as datahub for the management of hotels/appartements. In this case, it is used to get access to all booking relevant data
 2. **TimeTac**: A plattform that allows to track process times of (cleaning) people. In this case, it is being used to track/access data on how has cleaned which appartement when.
 
+##### Review Data
+For advanced analytics, the collected reviews have been analyzed with modern NLP-Techniques.
+1. **Translation:**
+   As the customers of the appartments can (and have been) writing reviews in more then 150 different languages, we have to start out by translating them
+   For this purpose, I used the `src/review_process_utils/review_translor.py` script that utilizes Google Translator to translate all reviews (when possible) to english.
+2. **Entity Extraction**:
+   In order to identify about what things the customers are happy/complaining about in the first place, reviews have been scanned for predefined keywords like *"mold"*, *"dust"*, *"bathroom"*,...
+   The entire list including the corresponding code be found in `src/review_process_utils/ER_extractor.py`
+3. **Identify Adjectives for Entities:**
+
+4. **Sentiment Analysis**: 
+   In order to provide the hotel managers another tool for effective review filtering/pre selection, a sentiment analysis utilizing BERT
+   has been implemented to categorize the reviews along the following dimensions.
+
+   ** TBD ***
+
+This eventually yielded the following additional review data for the knowledge graph: 
+
+| Column Name              | Data Type |
+|--------------------------|-----------|
+| Booking_ID  (PK)         | INT       |
+| Review_Text              | TEXT      |  
+| Sentiment Scores         | TEXT      | 
+| Issue_Entities           | TEXT      |  
+| Issue_Entities_Adjectives | TEXT      | 
+
+For simplification purposes this table is also stored in the AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB could be made, but
+due to the limited scope of this project I have decided to keep the overhead low and not setup another DB.
+
+
+
+**Side Node:**
 For this demonstration purpose, the production data has been used and been anonymized using `data_anonimizer.py` and stored in `data\demo_data.csv`
 
 

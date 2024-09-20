@@ -178,7 +178,7 @@
         </mxCell>
         <mxCell id="Nqe4G74S5Q0CVfayF0zi-37" value="has_been_cleaned_by" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Nqe4G74S5Q0CVfayF0zi-36" vertex="1" connectable="0">
           <mxGeometry x="0.2576" relative="1" as="geometry">
-            <mxPoint x="-31" y="3" as="offset" />
+            <mxPoint x="-50" y="-7" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Nqe4G74S5Q0CVfayF0zi-31" value="&lt;b&gt;Apparment&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Appartment Schillergasse 99/12&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
