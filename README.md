@@ -83,13 +83,13 @@ This eventually yielded the following additional review data for the knowledge g
 | Issue_Entities           | TEXT      |  
 | Issue_Entities_Adjectives | TEXT      | 
 
-For simplification purposes this table is also stored in the AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB could be made, but
+For simplification purposes this table is also stored in the AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB or AWS Dynamo DB could be made, but
 due to the limited scope of this project I have decided to keep the overhead low and not setup another DB.
 
 
 
 **Side Node:**
-For this demonstration purpose, the production data has been used and been anonymized using `data_anonimizer.py` and stored in `data\demo_data.csv`
+For this demonstration purpose, the production data has been used and been anonymized using `src/data_anonimizer.py` and stored in `data\demo_data.csv`
 
 
 ### Architecture
@@ -133,6 +133,10 @@ The opportunity to add Neo4j in a docker container to the existing technical inf
 
 
 
+
+
+
+### Building the knowledge Graph: 
 
 
 

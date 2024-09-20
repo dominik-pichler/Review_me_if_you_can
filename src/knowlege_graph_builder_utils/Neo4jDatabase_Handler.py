@@ -1,18 +1,17 @@
 from neo4j import GraphDatabase
-
+import pandas as pd
 # Define the connection URI
 uri = "bolt://localhost:7687"  # Default port for Bolt protocol
 
 # Define a class to handle Neo4j interactions
-class Neo4jDatabase:
-
+class Neo4jDatabase_Handler:
     def __init__(self, uri):
         self.driver = GraphDatabase.driver(uri, auth=None)  # No authentication
 
     def close(self):
         self.driver.close()
 
-    def populate_data(self):
+    def populate_data(self,data:pd.DataFrame):
         with self.driver.session() as session:
             session.write_transaction(self._create_data)
 
