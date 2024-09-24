@@ -13,7 +13,12 @@ class KG_Building_Handler:
         # Wrangling
         self.neo4j_Handler.populate_data(data)
 
-
+    def populate_KG_with_demo_data(self):
+        try:
+            data = pd.read_csv("../data/KG_demo.csv")
+            self.neo4j_Handler.populate_data(data=data)
+        except Exception as e:
+            raise Exception(f"Could not populate KG with demo data due to {e}")
 # Continous update and Managment
 
 

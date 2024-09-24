@@ -19,13 +19,26 @@ ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ```
 
 # How to use: 
-Start the Neo4j database via: 
+1. Start the Neo4j database via: 
 ```shell
 docker-compose up -d
 ```
 
-Visit http://localhost:7474/browser/ and enjoy the show
+2. Install all needed packages from  the `requirements.txt`
+3. Fill the Neo4j database with the (demo) data
+   In case you want to work with the demo data, just run the `populate_KG_with_demo_data` function in `src/KG_Building_Handler.py`.
 
+et voilà, visit http://localhost:7474/browser/ and enjoy the show
+
+
+## Logic-based Reasoning:
+Logic-bases reasoning  as described below, can be applied to the KG by running the `run_logic_based_reasoning()` function in `src/perform_analysis.py`.
+The results will be presented in a dedicated streamlit dashboard that can started by running `streamlit run src/dashboards/LBR_dashboard.py`
+
+
+## Graph Neural Networks
+Deep neural network reasoning  as described below, can be applied to the KG by running the `run_GNN_reasoning()` function in `src/perform_analysis.py`.
+The results will be presented in a dedicated streamlit dashboard that can started by running `streamlit run src/dashboards/GNN_dashboard.py`
 
 # About
 
