@@ -18,12 +18,16 @@ def infer_logic_connection() -> bool:
         except Exception as e:
             return False
 
-def identify_most_connected_nodes() -> list:
+def identify_n_most_connected_nodes(n) -> list:
     with driver.session() as session:
-        query = """
-        MATCH (n)-[r]->(m)
-WITH n, count(r) AS degree
-ORDER BY degree DESC
-LIMIT n // Replace 'n' with the desired number of top nodes
-RETURN n, degree
-        """
+        try:
+            query = f"""
+                    MATCH (n)-[r]->(m)
+                    WITH n, count(r) AS degree
+                    ORDER BY degree DESC
+                    LIMIT {n} // Replace 'n' with the desired number of top nodes
+                    RETURN {n}, degree
+                    """
+            session.run(query)
+        except Exception as e:
+            raise Exception("Could not identify most connected nodes")

@@ -168,7 +168,7 @@ The opportunity to add Neo4j in a docker container to the existing technical inf
 As introduced before, the `BASE_TABLE_KG_GENERATION` Table will be used as a starting point for the generation of a  **Knowledge Graph**
 In order to do so, the data of the table above will be transformed into a Knowledge Graph based on the Ontology sketched in *Image 2*.
 This has been achieved with the help of `KG_Building_Handler.py` that sets up the KG and continuously integrates new data into it. In order to be able to potentially manage multiple KG's, each KG is built inside an own Schema.
-For further separation, multipe instances can be created due to the Docker based architecture.
+For further separation, multiple instances can be created due to the Docker based architecture.
 
 
 
@@ -197,11 +197,15 @@ ORDER BY degree DESC
 Following up, I want to figure out if certain cleaners are linked more often/central nodes to worse than average customer ratings.
 I identified this via: 
 
-```
-TO BE DONE
+```cypher
+MATCH (b:Booking)-[:CLEANED_BY]->(c:Cleaner)
+WITH avg(toFloat(b.`Sentiment Scores`)) AS averageSentimentScore, c, b
+WHERE toFloat(b.`Sentiment Scores`) < averageSentimentScore
+RETURN c.name AS CleanerName, count(b) AS belowAverageCount, size((c)--()) AS degree
+ORDER BY belowAverageCount DESC, degree DESC
 ```
 
-
+#### Results
 
 
 
@@ -227,9 +231,20 @@ In this paper, the authors have compared the following different methods, includ
 Intrigued by their claims, I wanted to test **DMoN** on my own knowledge graph. 
 
 
-Therefore, with the help of **PyTorch Geometric** I wrote a script to run this method on my onw KG. 
- **PyTorch Geometric** was choosen over other Frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
+Therefore, with the help of **PyTorch Geometric** I wrote a script to run this method on my onw KG.
+This script can be found in `src/GNN_Handler.py`.
+ **PyTorch Geometric** was chosen over other Frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
+
+#### Results: 
 
 
+
+
+
+## Presentation Layer: 
+In order to present the determined results, I decided to use *Streamlit* to create a small dashboard, that can then be used 
+in an real life application as **customer satisfaction and cleaning quality monitor**
+I chose *Streamlit* mainly due to its ease of use, its excellece when it comes to rapid prototyping that still comes with very good user experience that can be designed in a typical pythonic way.
+The thereby built dashboard can be found under `src/dashboards/monitoring_dashboard.py`
 # TO READ:
  https://distill.pub/2021/gnn-intro/
