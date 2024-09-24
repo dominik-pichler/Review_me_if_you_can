@@ -203,23 +203,33 @@ TO BE DONE
 
 
 
+
+
 ## 4. GNNs on the KG
 The first analysis concerns the high density regions, and hence grouping, meaning, I want know if the entire graph can be clustered into interesting clusters
-For this task, serveral GNN Architectures have been found useful in the past.
-Some of them are: 
-- **Just Balance GNN**: 
-  This model simplifies the clustering objective by using a minimalist unsupervised loss that focuses on balancing cluster size
-- **Deep Modularity Networks**:
-  This approach uses an unsupervised pooling method inspired by modularity measures to recover high-quality clusters
-- **ClusterGNN**:
-  A coarse-to-fine method that establishes local graphs for feature matching, reducing redundant information spread
+For this task I have oriented on the paper of Tsitsulin et.al. (2023) [Link to paper](https://www.jmlr.org/papers/volume24/20-998/20-998.pdf)
+In this paper, the authors have compared the following different methods, including their basic properties and introduced their own Methode *Deep Modularity Networks* (**DMoN**). 
+
+| Method   | End-to-end | Unsup. | Node pooling | Sparse | Soft assign. | Stable | Complexity |
+|----------|------------|--------|--------------|--------|--------------|--------|------------|
+| Graclus  | ✘          | ✔      | ✔            | ✔      | ✘            | ✔      | O(dn + m)  |
+| DiffPool | ✔          | ✔      | ✔            | ✘      | ✔            | ✘      | O(dn²)     |
+| AGC      | ✘          | ✔      | ✔            | ✘      | ✘            | ✘      | O(dn²k)    |
+| DAEGC    | ✘          | ✔      | ✔            | ✘      | ✘            | ✘      | O(dnk)     |
+| SDCN     | ✘          | ✔      | ✔            | ✔      | ✘            | ✘      | O(d²n + m) |
+| NOCD     | ✔          | ✔      | ✔            | ✘      | ✔            | ✔      | O(dn + m)  |
+| Top-k    | ✔          | ✘      | ✘            | ✔      | ✘            | ✔      | O(dn + m)  |
+| SAG      | ✘          | ✘      | ✔            | ✘      | ✘            | ✘      | O(dn + m)  |
+| MinCut   | ✔          | ✔      | ✔            | ✔      | ✔            | ✘      | O(d²n + m) |
+| DMoN     | ✔          | ✔      | ✔            | ✔      | ✔            | ✔      | O(d²n + m) |
 
 
-With the help of `PyTorch Geometric` I then implemented 
+Intrigued by their claims, I wanted to test **DMoN** on my own knowledge graph. 
 
 
+Therefore, with the help of **PyTorch Geometric** I wrote a script to run this method on my onw KG. 
+ **PyTorch Geometric** was choosen over other Frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
 
 
-Eventually **PyTorch Geometric** was choosen over other Frameworks like DGl and Graphnets
 # TO READ:
  https://distill.pub/2021/gnn-intro/

@@ -3,15 +3,15 @@ from tqdm import tqdm
 import langdetect
 from deep_translator import GoogleTranslator
 
-
 def translate_reviews(df: pd.DataFrame) -> pd.DataFrame:
     # Ensure the DataFrame has the correct structure
-    if df.shape[1] != 2:
-        raise ValueError("DataFrame must have exactly two columns: 'ID' and 'Review'")
+    if df.shape[1] != 3:
+        raise ValueError("DataFrame must have exactly four columns: 'Appartment', 'Date', 'Review', and 'ID'")
 
-    # Extract IDs and reviews
-    ids = df.iloc[:, 0]
-    reviews = df.iloc[:, 1]
+    # Extract columns
+    appartments = df.iloc[:, 1]
+    dates = df.iloc[:, 2]
+    reviews = df.iloc[:, 0]
 
     translated_reviews = []
 
@@ -29,15 +29,16 @@ def translate_reviews(df: pd.DataFrame) -> pd.DataFrame:
 
         translated_reviews.append(translated_review)
 
-    # Create a new DataFrame with IDs and translated reviews
-    translated_df = pd.DataFrame({'ID': ids, 'Translated Review': translated_reviews})
+    # Create a new DataFrame with Apartments, Dates, IDs, Reviews, and Translated Reviews
+    translated_df = pd.DataFrame({
+        'Appartment': appartments,
+        'Date': dates,
+        'Review': reviews,
+        'Translated_Review': translated_reviews,
+    })
 
     return translated_df
 
-
 # Example usage
-data = {'ID': [1, 2, 3], 'Review': ['Bonjour', 'Hello', 'Hola']}
-df = pd.DataFrame(data)
-
-translated_df = translate_reviews(df)
-print(translated_df)
+# Assuming df is your input DataFrame with columns: 'Apartment', 'Date', 'Review', 'ID'
+# translated_df = translate_reviews(df)

@@ -1,16 +1,14 @@
 import nltk
 import spacy
 
-# Ensure you have downloaded the necessary resources
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nlp = spacy.load("en_core_web_sm")
-
-# Define keywords related to household or cleaning
-household_keywords = {"broom", "vacuum", "mold", "dust", "bathroom", "detergent", "sponge", "cloth", "bucket"}
-
-
 def extract_nouns(text):
+    # Ensure you have downloaded the necessary resources
+    nltk.download('punkt')
+    nltk.download('averaged_perceptron_tagger')
+    nlp = spacy.load("en_core_web_sm")
+
+    # Define keywords related to household or cleaning
+
     # Tokenize the text into sentences
     sentences = nltk.sent_tokenize(text)
 
@@ -32,6 +30,11 @@ def extract_nouns(text):
 
 
 def extract_nouns_and_adjectives(text):
+    nltk.download('punkt')
+    nltk.download('averaged_perceptron_tagger')
+    nlp = spacy.load("en_core_web_sm")
+    household_keywords = {"broom", "vacuum", "mold", "dust", "bathroom", "detergent", "sponge", "cloth", "bucket"}
+
     # Process the text with SpaCy
     doc = nlp(text)
 
@@ -48,7 +51,3 @@ def extract_nouns_and_adjectives(text):
 
     return noun_adj_pairs
 
-# Example usage
-text = "The quick brown fox jumps over the lazy dog."
-nouns = extract_nouns(text)
-print(nouns)

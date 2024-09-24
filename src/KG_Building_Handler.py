@@ -1,5 +1,5 @@
 # Init
-from knowlege_graph_builder_utils.Neo4jDatabase_Handler import Neo4jDatabase_Handler
+from KG_Builder_utils.Neo4jDatabase_Handler import Neo4jDatabase_Handler
 import pandas as pd
 
 uri = "bolt://localhost:7687"  # Default port for Bolt protocol
