@@ -24,12 +24,13 @@ def fetch_graph_data():
 
         return data
 
+if __name__ == '__main__':
 
-# Fetch the graph data
-graph_data = fetch_graph_data()
+    # Fetch the graph data
+    graph_data = fetch_graph_data()
 
-# Close the driver connection when done
-driver.close()
+    # Close the driver connection when done
+    driver.close()
 
-# Display the fetched data
-print(graph_data)
+    # Display the fetched data
+    print(graph_data)
