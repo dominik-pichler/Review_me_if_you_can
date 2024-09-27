@@ -71,8 +71,8 @@ and in addition, a graph query console will maybe be integrated to where the use
 The ABT consists of the following columns: 
 | Column Name         | Data Type      | Source |
 |---------------------|----------------|--------|
-| Booking_ID  (PK)    | INT            | KROSS        |
-| Start_date_of_stay  | TIME STAMP     |  KROSS      |
+| Booking_ID  (PK)    | INT            | KROSS  |
+| Start_date_of_stay  | TIME STAMP     |  KROSS     |
 | Appartement         | STRING         |  KROSS      |
 | Cleaner             | STRING         |  TIMETAC      |
 | Review Text         | TEXT           |  KROSS      |
@@ -112,7 +112,7 @@ due to the limited scope of this project I have decided to keep the overhead low
 
 
 
-Eventually, this results in the following ABT `BASE_TABLE_KG_GENERATION` that will be used for building the Knowledge Graph: 
+Eventually, this results in the following ABT `ABT_BASE_TABLE_KG_GENERATION` that will be used for building the Knowledge Graph: 
 
 | Column Name               | Data Type  | Source    |
 |---------------------------|------------|-----------|
