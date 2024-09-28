@@ -31,17 +31,16 @@ docker-compose up -d
 et voilà, visit http://localhost:7474/browser/ and enjoy the show
 
 
-## Logic-based Reasoning:
+### How to use Logic-based Reasoning:
 Logic-bases reasoning  as described below, can be applied to the KG by running the `run_logic_based_reasoning()` function in `src/perform_analysis.py`.
 The results will be presented in a dedicated streamlit dashboard that can started by running `streamlit run src/dashboards/LBR_dashboard.py`
 
 
-## Graph Neural Networks
+### How to use Graph Neural Networks
 Deep neural network reasoning  as described below, can be applied to the KG by running the `run_GNN_reasoning()` function in `src/perform_analysis.py`.
 The results will be presented in a dedicated streamlit dashboard that can started by running `streamlit run src/dashboards/GNN_dashboard.py`
 
 # About
-
 ## 1. Scenario
 Short-Term Renting business is hard, but without the right monitoring tools for customer satisfaction, it is even harder(then it has to be).
 This Repo utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in identifying problems regarding their cleaning services. 
@@ -69,13 +68,14 @@ and in addition, a graph query console will maybe be integrated to where the use
 
 #### Analytical Base Table
 The ABT consists of the following columns: 
-| Column Name         | Data Type      | Source |
-|---------------------|----------------|--------|
-| Booking_ID  (PK)    | INT            | KROSS  |
-| Start_date_of_stay  | TIME STAMP     |  KROSS     |
-| Appartement         | STRING         |  KROSS      |
-| Cleaner             | STRING         |  TIMETAC      |
-| Review Text         | TEXT           |  KROSS      |
+
+| Column Name         | Data Type      | Source   |
+|---------------------|----------------|----------|
+| Booking_ID  (PK)    | INT            | KROSS    | 
+| Start_date_of_stay  | TIME STAMP     |  KROSS   |
+| Appartement         | STRING         |  KROSS   |
+| Cleaner             | STRING         |  TIMETAC |
+| Review Text         | TEXT           |  KROSS   |
 
 that have been derived (as depicted later on in the architecture section) from two APIs:
 1. **KROSS**: A plattform that works as datahub for the management of hotels/appartements. In this case, it is used to get access to all booking relevant data
@@ -122,13 +122,13 @@ Eventually, this results in the following ABT `ABT_BASE_TABLE_KG_GENERATION` tha
 | Cleaner                   | STRING     | TIMETAC   |
 | Review Text               | TEXT       | KROSS     |
 | Sentiment Scores          | TEXT       | ML Model  |
-| Issue_Entities            | TEXT       | ML Model  |
-| Issue_Entities_Adjectives | TEXT       | ML_Model  | 
-
 
 
 **Side Node:**
 For this demonstration purpose, the production data has been used and been anonymized using `src/data_anonimizer.py` and stored in `data\demo_data.csv`
+Due to my limited local computational power, I have only selected a small sample from the original data.
+Nonetheless, this project has been designed in a scalable way and the entirety of the data could be easily processed with the help of more computational power.
+
 
 
 ### Architecture
@@ -158,6 +158,7 @@ Starting out, the **AWS Suite** (running Python and PostGRES) was chosen for dat
 Part of the decision for this technology suit was it's general purpose, high scalability and wide array of utilities. 
 In addition it provides a strong architectural backbone for all kind of ML-Application, being it classic, or graph based, allowing them to flourish in harmony and synergy.
 
+https://superlinked.com/vector-db-comparison
 
 **Neo4j** was then chose as a database for storing the built Knowledge Graph(s), while other database have been investigated, some being: 
 - Amazons's own solution - Neptune
@@ -184,6 +185,7 @@ This has been achieved with the help of `KG_Building_Handler.py` that sets up th
 For further separation, multiple instances can be created due to the Docker based architecture.
 
 
+## 2. Knowledge Graph Embeddings
 
 
 

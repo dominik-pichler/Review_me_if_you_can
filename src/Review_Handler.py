@@ -187,7 +187,7 @@ class ReviewHandler:
             for _, row in ReviewHandler.processed_reviews.iterrows():
                 try:
                     insert_query = f"""
-                    INSERT INTO {table_name} (raw_reviews, translated_reviews, sentiments, nouns_and_entities)
+                    INSERT INTO {table_name} (appartment,review_date, raw_reviews, translated_reviews, sentiments, nouns_and_entities)
                     VALUES (%s, %s, %s, %s);
                     """
                     self.cursor.execute(insert_query,
