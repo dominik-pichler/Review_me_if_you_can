@@ -18,6 +18,27 @@
 ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ```
 
+
+
+
+# Introduction
+## The Scenario
+Short-Term Renting business (STR) is hard, but without the right monitoring tools for customer satisfaction, it is even harder(then it has to be).
+This Repo utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in identifying problems regarding their cleaning services and customer satisfactions. 
+In particular, it is aiming at identifying if certain appartements or cleaning personals form clusters/sources of exceptionally good or bad customer experiences.
+Hence the thereby modeled KG should provided the user with a good structure for all general queries. 
+
+### The Analytics
+For this reason, this project provides a presentation layer that displays the following information to the user: 
+- A list of cleaning personal that is linked to the best/worst customer experiences. 
+- A list of apartments that are linked to the best/worst customer experiences.
+- A analysis to identify if certain cleaning people or appartements became a central node in a node of dissatisfaction or form a cluster.
+- Advanced analytics of the customer reviews utilizing *BERT* and *TransE*
+
+Eventually, this insight could then be used to infer insights for improvements in cleaning protocols, appartements and eventually customer satisfaction.
+
+
+
 # How to use: 
 1. Start the Neo4j database via: 
 ```shell
@@ -40,23 +61,6 @@ The results will be presented in a dedicated streamlit dashboard that can starte
 Deep neural network reasoning  as described below, can be applied to the KG by running the `run_GNN_reasoning()` function in `src/perform_analysis.py`.
 The results will be presented in a dedicated streamlit dashboard that can started by running `streamlit run src/dashboards/GNN_dashboard.py`
 
-
-
-# Introduction
-## The Scenario
-Short-Term Renting business (STR) is hard, but without the right monitoring tools for customer satisfaction, it is even harder(then it has to be).
-This Repo utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in identifying problems regarding their cleaning services and customer satisfactions. 
-In particular, it is aiming at identifying if certain appartements or cleaning personals form clusters/sources of exceptionally good or bad customer experiences.
-Hence the thereby modeled KG should provided the user with a good structure for all general queries. 
-
-### The Analytics
-For this reason, this project provides a presentation layer that displays the following information to the user: 
-- A list of cleaning personal that is linked to the best/worst customer experiences. 
-- A list of apartments that are linked to the best/worst customer experiences.
-- A analysis to identify if certain cleaning people or appartements became a central node in a node of dissatisfaction or form a cluster.
-- Advanced analytics of the customer reviews utilizing *BERT* and *TransE*
-
-Eventually, this insight could then be used to infer insights for improvements in cleaning protocols, appartements and eventually customer satisfaction.
 
 
 # Background
