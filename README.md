@@ -183,18 +183,15 @@ So the idea here is to offer the business owners a application that helps to ass
 As this is a very specific use case, a general (not fine-tuned and industry specific) model like BERT is assumed to be only of limited help.
 Therefore, a train-dataset consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *cleaning_quality_was_{**Quality**}* relationship () from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the following constraint holds true:
 <br>
-$\[ f(x) = \begin{cases}  x^2, & \text{if } x < 0 \\  x^3, & \text{if } x \ge 0  \end{cases} \]$
 
+$$
 
-```{=latex}
-\begin{equation}
 f(x) = 
 \begin{cases} 
 x^2, & \text{if } x < 0 \\ 
 x^3, & \text{if } x \ge 0 
 \end{cases}
-\end{equation}
-
+$$
 
 The implementation can be found in `src/Embeddings_Handler.py`.
 
