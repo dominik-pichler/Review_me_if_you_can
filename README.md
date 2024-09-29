@@ -181,23 +181,19 @@ For further separation, multiple instances can easily be created due to the Dock
 One very important factor for customer satisfaction in this industry is the quality of the appartement cleanings. With increasing numbers of properties under management, assessing this quality can become a very time-consuming and inefficient process.
 So the idea here is to offer the business owners a application that helps to assess the quality of the appartement cleanings.
 As this is a very specific use case, a general (not fine-tuned and industry specific) model like BERT is assumed to be only of limited help.
-Therefore, a train-dataset consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *cleaning_quality_was_{**Quality**}* relationship () from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the following constraint holds true:
+Therefore, a train-dataset (50% of the entire dataset) consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *cleaning_quality_was_{**Quality**}* relationship () from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the following constraint holds true:
 <br>
 
 $$
-
-f(x) = 
+Quality(x) = 
 \begin{cases} 
-x^2, & \text{if } x < 0 \\ 
-x^3, & \text{if } x \ge 0 
+1, & \text{If no problems mentioned in the review }  \\ 
+0, & \text{Else }
 \end{cases}
 $$
 
 The implementation can be found in `src/Embeddings_Handler.py`.
 
-![equation](https://latex.codecogs.com/svg.latex?\Large%20f(x)%20=%20\begin{cases}%20x^2,%20&%20\text{if%20}%20x%20<%200%20\\%20x^3,%20&%20\text{if%20}%20x%20\ge%200%20\end{cases})
-
-   
 
 
 
