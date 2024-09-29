@@ -186,7 +186,8 @@ Therefore, a train-dataset (50% of the entire dataset) consisting of manually la
 
 $$
 Quality(x) = 
-\begin{cases} 
+\begin{cases}
+2, & \text{If good cleaning explicitly mentioned }  \\
 1, & \text{If no problems mentioned in the review }  \\ 
 0, & \text{Else }
 \end{cases}
