@@ -186,7 +186,18 @@ Therefore, a train-dataset consisting of manually labels that indicate whether a
 $\[ f(x) = \begin{cases}  x^2, & \text{if } x < 0 \\  x^3, & \text{if } x \ge 0  \end{cases} \]$
 
 
+```{=latex}
+\begin{equation}
+f(x) = 
+\begin{cases} 
+x^2, & \text{if } x < 0 \\ 
+x^3, & \text{if } x \ge 0 
+\end{cases}
+\end{equation}
+
+
 The implementation can be found in `src/Embeddings_Handler.py`.
+
 
    
 
