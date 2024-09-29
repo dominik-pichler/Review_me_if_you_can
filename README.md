@@ -93,9 +93,8 @@ In addition (and for advanced analytics), the collected reviews have been (pre-)
    In order to provide the hotel managers another tool for effective review filtering/pre-selection, initially a sentiment analysis utilizing [DistilRoBERTa](https://huggingface.co/j-hartmann/emotion-english-distilroberta-base)
    has been implemented to categorize the reviews along [Paul Ekman's 6 basic dimensions](https://www.paulekman.com/wp-content/uploads/2013/07/Basic-Emotions.pdf) + one neural. 
    The corresponding script can be found in `src/Review_Handler.py`
-   The cool thing is, that later on, it will be tested if manually assessed training data in combination mit KG Embeddings utilizing [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) 
-   might be a valid alternativ approach.
-
+   
+3 **Quality Analysis of cleaning
 
 But for now,this translation and sentiment analysis yielded the following additional review data for the knowledge graph: 
 
