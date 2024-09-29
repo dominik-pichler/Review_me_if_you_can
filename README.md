@@ -1,4 +1,4 @@
-# Knowledge Graphs for the win! 
+# Knowledge Graphs for breakfast! 
 
 ```
                                    /\
