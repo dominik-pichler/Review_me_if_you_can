@@ -1,4 +1,4 @@
-## Knowledge Graphs for beds and breakfast
+## Knowledge Graphs for beds and breakfasts
 
 ```
                                    /\
