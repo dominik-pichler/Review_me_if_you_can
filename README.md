@@ -195,6 +195,7 @@ $$
 
 The implementation can be found in `src/Embeddings_Handler.py`.
 
+![equation](https://latex.codecogs.com/svg.latex?\Large%20f(x)%20=%20\begin{cases}%20x^2,%20&%20\text{if%20}%20x%20<%200%20\\%20x^3,%20&%20\text{if%20}%20x%20\ge%200%20\end{cases})
 
    
 
