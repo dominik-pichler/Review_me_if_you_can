@@ -1,6 +1,12 @@
-# Fetch Data from ABT
-
-# Start Review Processing
+# Running the KG Builder
 
 
-# Populate KG
+# Running LBR
+
+# Running GNN
+
+
+# Running Embeddings
+
+
+# Pass results to
