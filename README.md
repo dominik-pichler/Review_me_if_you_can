@@ -35,7 +35,7 @@ For this reason, this project provides a presentation layer that displays the fo
 - A analysis to identify if certain cleaning people or appartements became a central node in a node of dissatisfaction or form a cluster.
 - Advanced analytics of the customer reviews utilizing *BERT* and *TransE*
 
-Eventually, this insight could then be used to infer insights for improvements in cleaning protocols, appartements and eventually customer satisfaction.
+Eventually, this insight could then be used to infer insights for improvements in cleaning protocols, appartements and eventually customer satisfaction. 
 
 
 
@@ -49,7 +49,8 @@ docker-compose up -d
 3. Fill the Neo4j database with the (demo) data
    In case you want to work with the demo data, just run the `populate_KG_with_demo_data` function in `src/KG_Building_Handler.py`.
 
-et voilà, visit http://localhost:7474/browser/ and enjoy the show
+et voilà, visit http://localhost:7474/browser/ for the Neo4j Database and `TDB` for the *Streamlit Dashboard*.
+Enjoy the show
 
 
 ### How to use Logic-based Reasoning:
@@ -105,7 +106,8 @@ But for now,this translation and sentiment analysis yielded the following additi
 |------------------------|-----------|
 | Booking_ID  (PK)       | INT       |
 | Translated_Review_Text | TEXT      |  
-| Primary_Emotion        | TEXT      | 
+| Primary_Emotion        | TEXT      |
+| Cleaning_Quality      | INT       |
 
 For simplification purposes this table is also stored in the AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB or AWS Dynamo DB could be made, but
 due to the limited scope of this project I have decided to keep the overhead low and not setup another DB.
@@ -113,15 +115,16 @@ due to the limited scope of this project I have decided to keep the overhead low
 
 Eventually, this results in the following ABT `ABT_BASE_TABLE_KG_GENERATION` that will be used for building the Knowledge Graph: 
 
-| Column Name            | Data Type  | Source            |
-|------------------------|------------|-------------------|
-| Booking_ID  (PK)       | INT        | KROSS             |
-| Start_date_of_stay     | TIME STAMP | KROSS             |
-| Appartement            | STRING     | KROSS             |
-| Cleaner                | STRING     | TIMETAC           |
-| Translated_Review_Text | TEXT       | KROSS             |
-| Primary_Emotion        | TEXT       | ML Model / Manual |
- | Sentiment_Score       | FLOAT      | ML Model / Manual |
+| Column Name             | Data Type  | Source        |
+|-------------------------|------------|---------------|
+| Booking_ID  (PK)        | INT        | KROSS         |
+| Start_date_of_stay      | TIME STAMP | KROSS         |
+| Appartement             | STRING     | KROSS         |
+| Cleaner                 | STRING     | TIMETAC       |
+| Translated_Review_Text  | TEXT       | KROSS         |
+| Primary_Emotion         | TEXT       | ML Model      |
+| Sentiment_Score         | FLOAT      | ML Model      |
+ | Cleaning_Quality      | INT         | Manual/TransE |  
 
 
 **Side Node:**

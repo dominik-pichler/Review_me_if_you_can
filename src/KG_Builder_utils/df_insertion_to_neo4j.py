@@ -15,7 +15,6 @@ data = [
 
 # Create a DataFrame
 df = pd.DataFrame(data)
-
 # Connect to Neo4j
 uri = "bolt://localhost:7687"
 user = "neo4j"
@@ -34,6 +33,7 @@ def insert_and_connect_data(tx, row_data):
          CREATE (rev:review {text: $review_text})
          CREATE (em:emotion {text: $emotion})
          CREATE (sc:score  {text: $score})
+         CREATE (ca:perceived_cleaning_quality {value: $perceived_cleaning_quality}
 
          CREATE (b)-[:HAS_START_DAY]->(s)
          CREATE (b)-[:IN_APPARTMENT]->(a)
