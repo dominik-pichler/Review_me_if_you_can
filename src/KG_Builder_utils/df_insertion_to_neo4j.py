@@ -44,7 +44,7 @@ def insert_and_connect_data(tx, row_data):
         MERGE (r:Reinigungsmitarbeiter {name: $reinigungsmitarbeiter})
         CREATE (rev:Review {text: $review_text}) // Assuming reviews are unique per booking
         CREATE (em:Emotion {text: $emotion}) // Assuming emotions are unique per review
-        CREATE (sc:Score  {text: $score}) // Assuming scores are unique per emotion
+        CREATE (sc:Score  {text: $score}) // Assuming scores are unique per emotionR
 
         // Create relationships
         CREATE (b)-[:HAS_START_DAY]->(s)
@@ -61,9 +61,9 @@ def insert_and_connect_data(tx, row_data):
         query += (
             """
             WITH b, s, a, r, rev, em, sc
-            MERGE (ca:PerceivedCleaningQuality {value: $perceived_cleaning_quality})
-            CREATE (ca)-[:HAS_PERCEIVED_CLEANING]->(r)
-            CREATE (r)-[:HAS_PERCEIVED_CLEANING]->(ca)
+            MERGE (ca:PerceivedCleaningQuality {text: $perceived_cleaning_quality})
+            CREATE (ca)-[:INDICATES_CLEANING_QUALITY]->(r)
+            CREATE (rev)-[:HAS_PERCEIVED_CLEANING]->(ca)
 
             """
         )
