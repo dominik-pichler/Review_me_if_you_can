@@ -2,7 +2,7 @@ import pandas as pd
 from neo4j import GraphDatabase
 
 def load_demo_data():
-    return pd.read_csv('/Users/dominikpichler/Documents/Git/Uni/READ_ME_ALL_DAY_LONG/data/abt_base_table_kg_generation.csv')
+    return pd.read_csv('/Users/dominikpichler/Documents/Git/Uni/READ_ME_ALL_DAY_LONG/data/demo_data.csv',sep=',')
 
 # Sample data
 data = [
@@ -33,14 +33,16 @@ def insert_and_connect_data(tx, row_data):
          CREATE (rev:review {text: $review_text})
          CREATE (em:emotion {text: $emotion})
          CREATE (sc:score  {text: $score})
-         CREATE (ca:perceived_cleaning_quality {value: $perceived_cleaning_quality}
+         CREATE (ca:perceived_cleaning_quality {value: $perceived_cleaning_quality})
 
          CREATE (b)-[:HAS_START_DAY]->(s)
-         CREATE (b)-[:IN_APPARTMENT]->(a)
+         CREATE (b)-[:HAS_BOOKED_APPARTEMENT]->(a)
          CREATE (b)-[:CLEANED_BY]->(r)
          CREATE (b)-[:HAS_REVIEW]->(rev)
-CREATE (rev)-[:HAS_EMOTION]->(em)
-CREATE (em)-[:HAS_SCORE]->(sc)
+         CREATE (rev)-[:HAS_EMOTION]->(em)
+         CREATE (em)-[:HAS_SCORE]->(sc)
+         
+         CREATE (ca)-[:HAS_PERCEIVED_CLEANING]->(r)
 
          """
     )
