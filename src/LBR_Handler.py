@@ -1,16 +1,15 @@
 from neo4j import GraphDatabase, Result
-from credentials import neo_uri,neo_password,neo_username
+from credentials import neo_uri, neo_password, neo_username
 from tqdm import tqdm
 import pandas as pd
+
 driver = GraphDatabase.driver(neo_uri, auth=(neo_username, neo_password))
-
-
 
 
 def identify_best_cleaners():
     try:
         with driver.session() as session:
-            query= """
+            query = """
              // Match cleaning personnel and their associated reviews and emotions
                 MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
                 WHERE em.text IN ['joy', 'disgust'] // Filter for relevant emotions
@@ -44,43 +43,106 @@ def identify_best_cleaners():
             columns = result.keys()
 
             # Create a DataFrame from the records
-            df = pd.DataFrame(records, columns=columns)
+            return (pd.DataFrame(records, columns=columns))
 
-            print(df)
+
     except Exception as e:
         print(e)
+        raise e
 
 
-def infer_logic_connection() -> bool:
-    """
-    Function to infer the logic connection to Neo4j. Connects nodes with the same name or text.
-    :return: True if connections have been inferred successfully, False otherwise.
-    :rtype: bool
-    """
+def identify_best_appartments():
     try:
         with driver.session() as session:
-            # Parameterized query for different node labels and properties
-            node_types = [
-                {"label": "Appartment", "property": "name"},
-                {"label": "Reinigungsmitarbeiter", "property": "name"},
-                {"label": "review", "property": "text"},
-                {"label": "emotion", "property": "text"}
-            ]
+            query = """
+             // Match apartments and their associated reviews and emotions
+    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+    WHERE em.text IN ['joy', 'disgust'] // Filter for relevant emotions
 
-            for node_type in tqdm(node_types):
-                query = f"""
-                MATCH (n1:{node_type['label']}), (n2:{node_type['label']})
-                WHERE n1.{node_type['property']} = n2.{node_type['property']} AND id(n1) < id(n2)
-                CREATE (n1)-[:SAME_AS]->(n2);
+    // Aggregate emotion counts and total bookings 
+    WITH a, 
+         em.text           AS emotion, 
+         count(em)         AS emotionCount, 
+         count(DISTINCT b) AS totalBookings
+   ORDER BY a.name
+
+   // Calculate joy-to-disgust ratio
+   WITH a, 
+        sum(CASE WHEN emotion = 'joy' THEN emotionCount ELSE 0 END) AS joyCount,
+        sum(CASE WHEN emotion = 'disgust' THEN emotionCount ELSE 0 END) AS disgustCount,
+        totalBookings
+
+   WITH a, 
+        joyCount,
+        disgustCount, 
+        totalBookings,
+        CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio
+
+   // Order by joy-to-disgust ratio to rank apartments
+    ORDER BY joyDisgustRatio DESC
+
+   // Return ranked list of apartments with total bookings
+   RETURN a.name          AS apartment, 
+          joyDisgustRatio AS ratio, 
+          totalBookings
+
                 """
-                session.run(query)
+            result = session.run(query)
+            records = [record.data() for record in result]
+            columns = result.keys()
 
+            # Create a DataFrame from the records
+            return (pd.DataFrame(records, columns=columns))
 
-        return True
 
     except Exception as e:
-        print(f"An error occurred: {e}")
-        return False
+        print(e)
+        raise e
+
+
+def identify_central_appartments():
+    try:
+        with driver.session() as session:
+            query = """
+                    // Find clusters of dissatisfaction based on negative emotions
+                    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+                    WHERE em.text = 'disgust'
+                    RETURN a.name AS apartment, count(DISTINCT b) AS bookingsWithDisgust
+                    ORDER BY bookingsWithDisgust DESC;                 
+                    """
+            result = session.run(query)
+            records = [record.data() for record in result]
+            columns = result.keys()
+
+            # Create a DataFrame from the records
+            return (pd.DataFrame(records, columns=columns))
+
+    except Exception as e:
+        print(e)
+        raise e
+
+
+def identify_central_cleaners():
+    try:
+        with driver.session() as session:
+            query = """
+                     // Similarly for cleaning personnel
+                    MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+                    WHERE em.text = 'disgust'
+                    RETURN r.name AS cleaner, count(DISTINCT b) AS bookingsWithDisgust
+                    ORDER BY bookingsWithDisgust DESC;               
+                    """
+            result = session.run(query)
+            records = [record.data() for record in result]
+            columns = result.keys()
+
+            # Create a DataFrame from the records
+            return (pd.DataFrame(records, columns=columns))
+
+    except Exception as e:
+        print(e)
+        raise e
+
 def identify_n_most_connected_nodes(n) -> Result:
     '''
     Function to identify the most connected nodes of a graph.
@@ -117,8 +179,8 @@ def connection_check(driver, start_value, end_value) -> bool:
             record = result.single()
             return record["isConnected"] if record else False
         except Exception as e:
-         raise Exception("Could not identify if nodes are connected")
+            raise Exception("Could not identify if nodes are connected")
 
 
 if __name__ == '__main__':
-    identify_best_cleaners()
+    print(identify_central_cleaners())

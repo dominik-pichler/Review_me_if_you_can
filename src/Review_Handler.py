@@ -1,7 +1,7 @@
-from review_process_utils.review_translator import translate_reviews
-from review_process_utils.topic_analysis_bert import get_topic_stats
-from review_process_utils.emotion_detector import detect_emotions
-from review_process_utils.ER_extractor import extract_nouns, extract_nouns_and_adjectives
+from Review_Processors.review_translator import translate_reviews
+from Review_Processors.topic_analysis_bert import get_topic_stats
+from Review_Processors.emotion_detector import detect_emotions
+from Review_Processors.ER_extractor import extract_nouns, extract_nouns_and_adjectives
 import os
 from credentials import AH_DB_NAME, AH_HOSTNAME, AH_PASSWORD, AH_PORT, AH_SCHEMA_NAME, AH_USERNAME
 import psycopg2
