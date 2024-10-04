@@ -121,7 +121,7 @@ As mentioned before, the application utilizes data that has been fetched from *K
 <br>
 <br>
 <br>
-![Application_Architecture.png](drawings/Application_Architecture.png)
+![Application_Architecture.png](drawings/Application_Architecture.svg)
 
 <br>
 <br>
