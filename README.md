@@ -18,7 +18,7 @@
 ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ```
 
-
+![Cleaning_Graph](drawings/graph_fully_con.svg)
 
 
 # Introduction

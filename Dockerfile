@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y python3 python3-pip && \
 
 EXPOSE 7474 7687
 ENV NEO4J_AUTH=none
-ENV NEO4J_PLUGINS='["graph-data-science"]'
+ENV NEO4J_PLUGINS='["graph-data-science","apoc"]'
+
 # Set memory configurations
 ENV NEO4J_dbms_memory_heap_initial__size=4G
 ENV NEO4J_dbms_memory_heap_max__size=6G

@@ -29,35 +29,6 @@ def infer_logic_connection() -> bool:
                 """
                 session.run(query)
 
-            # Batch processing for merging nodes
-            merge_query = """
-                // Step 1: Identify groups of nodes connected by SAME_AS relationships
-                MATCH (n)-[:SAME_AS*]-(m)
-                WHERE id(n) < id(m)
-                 WITH n, collect(m) AS toMerge
-                LIMIT 10 // If you want to limit the number of nodes processed at once
-                
-                // Step 2: Transfer relationships from toMerge nodes to the main node
-                UNWIND toMerge AS duplicate
-    
-                 // Transfer outgoing relationships
-                MATCH (duplicate)-[r]->(target)
-                MERGE (n)-[newRel:SAME_AS]->(target)
-                  SET newRel = r
-                
-                // Transfer incoming relationships
-                 WITH n, duplicate
-                MATCH (source)-[r]->(duplicate)
-                MERGE (source)-[newRel:SAME_AS]->(n)
-                  SET newRel = r
-                
-                // Step 3: Delete the duplicate nodes
-               DETACH DELETE duplicate
-                
-                RETURN n;
-            """
-
-            session.run(merge_query)
 
         return True
 
