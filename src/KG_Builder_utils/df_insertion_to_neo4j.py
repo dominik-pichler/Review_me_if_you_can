@@ -56,7 +56,7 @@ def insert_and_connect_data(tx, row_data):
         """
     )
 
-    # Only add perceived_cleaning_quality if it is not NaN
+    # Only add perceived_cleaning_quality if it is not NaN -> needed because only a subset of data will be annotated
     if not isNaN(perceived_cleaning_quality):
         query += (
             """
