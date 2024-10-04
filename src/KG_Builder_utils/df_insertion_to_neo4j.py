@@ -4,7 +4,7 @@ import math
 
 
 def load_demo_data():
-    return pd.read_csv('//data/demo_data.csv', sep=',')
+    return pd.read_csv('../../data/demo_data.csv', sep=',')
 
 def isNaN(num):
     return num != num
@@ -61,8 +61,8 @@ def insert_and_connect_data(tx, row_data):
         query += (
             """
             WITH b, s, a, r, rev, em, sc
-            MERGE (ca:PerceivedCleaningQuality {value: $perceived_cleaning_quality})
-            CREATE (ca)-[:HAS_PERCEIVED_CLEANING]->(r)
+            MERGE (ca:PerceivedCleaningQuality)
+            CREATE (re)-[:HAS_PERCEIVED_CLEANING {value: $perceived_cleaning_quality}]->(r)
             """
         )
 
