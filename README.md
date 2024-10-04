@@ -1,4 +1,4 @@
-## Knowledge Graphs for breakfasts (&beds)
+## Knowledge Graphs for BnBs
 
 
 ![Cleaning_Graph](drawings/graph_fully_con.svg)
@@ -7,9 +7,8 @@
 # Introduction
 ## The Scenario
 Short-Term Renting business (STR) is hard, but without the right monitoring tools for customer satisfaction, it is even harder(then it has to be).
-This Repo utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in identifying problems regarding their cleaning services and customer satisfactions. 
+This Project utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in **identifying issues** regarding their cleaning services and customer satisfactions. 
 In particular, it is aiming at identifying if certain appartements or cleaning personals form clusters/sources of exceptionally good or bad customer experiences.
-Hence the thereby modeled KG should provided the user with a good structure for all general queries. 
 
 ### The Analytics
 For this reason, this project provides a presentation layer that displays the following information to the user: 
@@ -177,9 +176,9 @@ Therefore, a train-dataset (50% of the entire dataset) consisting of manually la
 $$
 Quality(x) = 
 \begin{cases}
-2, & \text{If good cleaning explicitly mentioned }  \\
-1, & \text{If no problems mentioned in the review }  \\ 
-0, & \text{Else }
+great_cleaning_quality, & \text{If good cleaning explicitly mentioned }  \\
+neutral_cleaning_quality, & \text{If no problems mentioned in the review }  \\ 
+bad_cleaning_quality, & \text{Else }
 \end{cases}
 $$
 
@@ -194,33 +193,94 @@ The implementation can be found in `src/Embeddings_Handler.py`.
 
 ## 2. Logic Based Reasoning on the KG
 
-To start out, I want to connect all nodes that share the same node name. The corresponding function can be found in `src/LBR_handler.inter_logic_connection()`
-
-After that, I wanted to identify the *n* most dense regions in the graph: 
+- A list of cleaning personal that is linked to the best/worst customer experiences. 
 
 ```cypher
-  MATCH (n)-[r]->(m)
-   WITH n, count(r) AS degree
-  ORDER BY degree DESC
-  LIMIT {n} 
- RETURN {n}, degree
-```
-The corresponding function can be found in `src/LBR_handler.identify_n_most_connected_nodes(n= ... )`
+    // Match cleaning personnel and their associated reviews and emotions
+    MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+    WHERE em.text IN ['joy', 'disgust'] // Filter for relevant emotions
 
-Following up, I want to figure out if certain cleaners are linked more often/central nodes to worse than average customer ratings.
+    // Aggregate emotion counts and total cleanings
+    WITH r, em.text AS emotion, count(em) AS emotionCount, count(DISTINCT b) AS totalCleanings
+   ORDER BY r.name
+
+    // Calculate joy-to-disgust ratio
+    WITH r, 
+         sum(CASE WHEN emotion = 'joy' THEN emotionCount ELSE 0 END) AS joyCount,
+         sum(CASE WHEN emotion = 'disgust' THEN emotionCount ELSE 0 END) AS disgustCount,
+         totalCleanings
+
+    WITH r, 
+         joyCount, 
+         disgustCount, 
+         totalCleanings,
+         CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio
+
+    // Order by joy-to-disgust ratio to rank performers
+    ORDER BY joyDisgustRatio DESC
+
+    // Return ranked list of performers with total cleanings
+     RETURN r.name AS cleaner, 
+            joyDisgustRatio AS ratio, 
+            totalCleanings
+```
+
+
+- A list of apartments that are linked to the best/worst customer experiences.
+
+```cypher
+    // Match apartments and their associated reviews and emotions
+    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+    WHERE em.text IN ['joy', 'disgust'] // Filter for relevant emotions
+
+    // Aggregate emotion counts and total bookings 
+    WITH a, 
+         em.text           AS emotion, 
+         count(em)         AS emotionCount, 
+         count(DISTINCT b) AS totalBookings
+   ORDER BY a.name
+
+   // Calculate joy-to-disgust ratio
+   WITH a, 
+        sum(CASE WHEN emotion = 'joy' THEN emotionCount ELSE 0 END) AS joyCount,
+        sum(CASE WHEN emotion = 'disgust' THEN emotionCount ELSE 0 END) AS disgustCount,
+        totalBookings
+
+   WITH a, 
+        joyCount,
+        disgustCount, 
+        totalBookings,
+        CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio
+
+   // Order by joy-to-disgust ratio to rank apartments
+    ORDER BY joyDisgustRatio DESC
+
+   // Return ranked list of apartments with total bookings
+   RETURN a.name          AS apartment, 
+          joyDisgustRatio AS ratio, 
+          totalBookings
+
+```
+
+
+- A analysis to identify if certain cleaning people or appartements became a central node in a node of dissatisfaction or form a cluster.
 I identified this via: 
 
 ```cypher
-MATCH (b:Booking)-[:CLEANED_BY]->(c:Cleaner)
-WITH avg(toFloat(b.`Sentiment Scores`)) AS averageSentimentScore, c, b
-WHERE toFloat(b.`Sentiment Scores`) < averageSentimentScore
-RETURN c.name AS CleanerName, count(b) AS belowAverageCount, size((c)--()) AS degree
-ORDER BY belowAverageCount DESC, degree DESC
+    // Find clusters of dissatisfaction based on negative emotions
+    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+    WHERE em.text = 'disgust'
+   RETURN a.name AS apartment, count(DISTINCT b) AS bookingsWithDisgust
+    ORDER BY bookingsWithDisgust DESC;
 ```
 
-Lastly, i wanted to have a query to identify whether two arbitrarily selected Vertices are connected.
-The corresponding function can be found in `src/LBR_handler.connection_check(start_vertex = .... , end_vertex = ....))`
-
+``` cypher
+     // Similarly for cleaning personnel
+     MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+     WHERE em.text = 'disgust'
+    RETURN r.name AS cleaner, count(DISTINCT b) AS bookingsWithDisgust
+     ORDER BY bookingsWithDisgust DESC;
+```
 
 
 #### LBR Results
