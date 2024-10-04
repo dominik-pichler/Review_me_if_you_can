@@ -134,11 +134,11 @@ In the meantime, an adapter (for now, running on-premise in a docker container),
 After that, the data gets transformed into a graph-structure and then added to an on-premise *Neo4J* Database (dockerized) to store the KG.
 
 Through this procedure described above, the KG is continuously fed with the newest data available and therefore constantly evolving.
-![KG_Architecture.png](drawings/KG_Architecture.png)
+![KG_Architecture](drawings/KG_Architecture.svg)
 
 <br>
 
-## Technologies used: 
+## Technologies used:  
 Starting out, the *AWS Suite* (running *Python* and *PostgreSQL*) was chosen for data fetching, job scheduling and classic RDBS (using PostGRES as Single Source of Truth).
 Part of the decision for this technology suit was it's general purpose,it's time/application proven quality, high scalability and wide array of utilities. 
 In addition it provides a strong architectural backbone for all kind of ML-Application, being it classic, or graph based, allowing them to flourish in harmony and synergy.
