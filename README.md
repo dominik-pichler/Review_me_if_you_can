@@ -189,8 +189,6 @@ The implementation can be found in `src/Embeddings_Handler.py`.
 
 ####  Embeddings Results
 
-
-
 ## 2. Logic Based Reasoning on the KG
 
 - A list of cleaning personal that is linked to the best/worst customer experiences. 
