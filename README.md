@@ -176,9 +176,9 @@ Therefore, a train-dataset (50% of the entire dataset) consisting of manually la
 $$
 Quality(x) = 
 \begin{cases}
-great_cleaning_quality, & \text{If good cleaning explicitly mentioned }  \\
-neutral_cleaning_quality, & \text{If no problems mentioned in the review }  \\ 
-bad_cleaning_quality, & \text{Else }
+\text{great cleaning quality}, & \text{If good cleaning explicitly mentioned }  \\
+\text{neutral cleaning quality}, & \text{If no problems mentioned in the review }  \\ 
+\text{bad cleaning quality}, & \text{Else }
 \end{cases}
 $$
 
@@ -294,16 +294,16 @@ In this paper, the authors have compared the following different methods, includ
 
 | Method   | End-to-end | Unsup. | Node pooling | Sparse | Soft assign. | Stable | Complexity |
 |----------|------------|--------|--------------|--------|--------------|--------|------------|
-| Graclus  | ✘          | ✔      | ✔            | ✔      | ✘            | ✔      | O(dn + m)  |
-| DiffPool | ✔          | ✔      | ✔            | ✘      | ✔            | ✘      | O(dn²)     |
-| AGC      | ✘          | ✔      | ✔            | ✘      | ✘            | ✘      | O(dn²k)    |
-| DAEGC    | ✘          | ✔      | ✔            | ✘      | ✘            | ✘      | O(dnk)     |
-| SDCN     | ✘          | ✔      | ✔            | ✔      | ✘            | ✘      | O(d²n + m) |
-| NOCD     | ✔          | ✔      | ✔            | ✘      | ✔            | ✔      | O(dn + m)  |
-| Top-k    | ✔          | ✘      | ✘            | ✔      | ✘            | ✔      | O(dn + m)  |
-| SAG      | ✘          | ✘      | ✔            | ✘      | ✘            | ✘      | O(dn + m)  |
-| MinCut   | ✔          | ✔      | ✔            | ✔      | ✔            | ✘      | O(d²n + m) |
-| DMoN     | ✔          | ✔      | ✔            | ✔      | ✔            | ✔      | O(d²n + m) |
+| Graclus  | N          | Y      | Y            | Y      | N            | Y      | O(dn + m)  |
+| DiffPool | Y          | Y      | Y            | N      | Y            | N      | O(dn²)     |
+| AGC      | N          | Y      | Y            | N      | N            | N      | O(dn²k)    |
+| DAEGC    | N          | Y      | Y            | Y      | N            | N      | O(dnk)     |
+| SDCN     | N          | Y      | Y            | Y      | N            | N      | O(d²n + m) |
+| NOCD     | Y          | Y      | Y            | Y      | Y            | Y      | O(dn + m)  |
+| Top-k    | Y          | N      | N            | Y      | N            | Y      | O(dn + m)  |
+| SAG      | N          | N      | Y            | N      | N            | N      | O(dn + m)  |
+| MinCut   | Y          | Y      | Y            | Y      | Y            | N      | O(d²n + m) |
+| DMoN     | Y          | Y      | Y            | Y      | Y            | Y      | O(d²n + m) |
 
 
 Intrigued by their claims, I wanted to test **DMoN** on my own knowledge graph. 
