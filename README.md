@@ -102,13 +102,15 @@ After that, the data gets transformed into a graph-structure and then added to a
 Through this procedure described above, the KG is continuously fed with the newest data available and therefore constantly evolving.
 The resulting KG then contains the following set of nodes and edges, per row in the original ABT:
 ![KG_Architecture](drawings/KG_Architecture.svg)
+
+
 **Side Node:** During the initial creation, the edges to the *Qualitiy Indiction* are only available for a subgroup (The training set) , as those are edges that should be learned with the help of *TransE*. 
 <br>
 
 ## Technologies used:  
 Starting out, the *AWS Suite* (running *Python* and *PostgreSQL*) was chosen for data fetching, job scheduling and classic RDBS (using PostGRES as Single Source of Truth).
-Part of the decision for this technology suit was it's general purpose,it's time/application proven quality, high scalability and wide array of utilities. 
-In addition it provides a strong architectural backbone for all kind of ML-Application, being it classic, or graph based, allowing them to flourish in harmony and synergy.
+Part of the decision for this technology suit was it's general purpose,it's time proven quality, high scalability and wide array of utilities. 
+In addition, it provides a strong architectural backbone for all kind of ML-Application, being it classic, or graph based, allowing them to flourish in harmony and synergy.
 
 
 Furthermore *Neo4j* was then chose as a database for storing the built Knowledge Graph(s), while other database have been investigated, some being: 
@@ -122,6 +124,8 @@ Furthermore *Neo4j* was then chose as a database for storing the built Knowledge
 
 While each DB provided individual advantages and disadvantages, Neo4j was convincing for this project, mainly due to it's great support for graph data structure, Cypher's amazing syntax, the efficient querying and the docker support, leading to great flexibility, solid performance, and eas of use that was really appealing.
 The opportunity to add Neo4j in a docker container to the existing technical infrastructure in AWS (leveraging EC2) underlines the flexibility and scalability of this technology.
+
+In addition and out of curiosity (in Vadalog/Datalog), a **cozoDB** has also been setup (can be found in `DataLogMe`) and tested. Due to time constraints for further experiments, I nonetheless stuck to Neo4j and Cypher. 
 
 
 
@@ -137,13 +141,13 @@ For further separation, multiple instances can easily be created due to the Dock
 One very important factor for customer satisfaction in this industry is the quality of the appartement cleanings. With increasing numbers of properties under management, assessing this quality can become a very time-consuming and inefficient process.
 So the idea here is to offer the business owners a application that helps to assess the quality of the appartement cleanings.
 As this is a very specific use case, a general (not fine-tuned and industry specific) model like BERT is assumed to be only of limited help.
-Therefore, a train-dataset (50% of the entire dataset) consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *cleaning_quality_was_{**Quality**}* relationship () from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the following constraint holds true:
+Therefore, a train-dataset (50% of the entire dataset) consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *indicates_perceived_cleaning_quality* relationship as well as the *has_indicating_cleaning_quality* relationship from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the following constraint holds true:
 <br>
 
 $$
-Quality(x) = 
+Quality_Indication(Review) = 
 \begin{cases}
-\text{great cleaning quality}, & \text{If good cleaning explicitly mentioned }  \\
+\text{great cleaning quality}, & \text{If good cleaning \textbf{explicitly} mentioned }  \\
 \text{neutral cleaning quality}, & \text{If no problems mentioned in the review }  \\ 
 \text{bad cleaning quality}, & \text{Else }
 \end{cases}
