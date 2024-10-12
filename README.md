@@ -12,7 +12,7 @@ Short-Term Renting business (STR) is hard, but without the right monitoring tool
 This Project utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in **identifying issues** regarding their cleaning services and customer satisfactions. 
 In particular, it is aiming at identifying if certain appartements or cleaning personals form clusters/sources of exceptionally good or bad customer experiences.
 
-### 1.1.1 The Analytics
+### 1.1.1 Proposed Analytics and Solutions
 For this reason, this project provides a presentation layer (via a `streamlit` application) that displays the following information to the user: 
 - A list of cleaning personal that is linked to the best/worst customer experiences. 
 - A list of apartments that are linked to the best/worst customer experiences.
@@ -53,8 +53,8 @@ In addition, (for advanced analytics), the collected reviews (via Kross Booking)
    has been implemented to categorize the reviews along [Paul Ekman's 6 basic dimensions](https://www.paulekman.com/wp-content/uploads/2013/07/Basic-Emotions.pdf) + one neural dimension. 
    The corresponding script can be found in `src/Review_Handler.py`
    
-
-For now, this translation and sentiment analysis yielded the following additional review data for the knowledge graph: 
+### 2.2.3 Results
+Finally this translation and sentiment analysis yielded the following additional review data for the knowledge graph: 
 
 | Column Name            | Data Type |
 |------------------------|-----------|
@@ -67,6 +67,7 @@ For simplification purposes this table is also stored in the AWS RDS. Of course 
 due to the limited scope of this project I have decided to keep the overhead low and not setup another DB.
 
 
+## 2.3 Data Set for the KG-Generation
 Finally, this results in the following ABT `ABT_BASE_TABLE_KG_GENERATION` that will be used for building the Knowledge Graph: 
 
 | Column Name            | Data Type  | Source        |
@@ -87,7 +88,7 @@ Due to my limited local computational resources, I have only selected a small sa
 Nonetheless, this project has been designed in a scalable way and the entirety of the data could be easily processed with the help of more computational resources easily with a simple deployment to AWS. 
 
 
-# Architecture
+# 3. Architecture
 As mentioned before, the application utilizes data that has been fetched from *KROSS Booking* and *TimeTac* via their internal APIs is currently stored in a AWS RDS in multiple tables using the architecture displayed below:
 <br>
 <br>
@@ -112,7 +113,7 @@ The resulting KG then contains the following set of nodes and edges, per row in 
 **Side Node:** During the initial creation, the edges to the *Qualitiy Indiction* are only available for a subgroup (The training set) , as those are edges that should be learned with the help of *TransE*. 
 <br>
 
-## Technologies used:  
+## 3.1 Technologies used:  
 Starting out, the *AWS Suite* (running *Python* and *PostgreSQL*) was chosen for data fetching, job scheduling and classic RDBS (using PostGRES as Single Source of Truth).
 Part of the decision for this technology suit was it's general purpose,it's time proven quality, high scalability and wide array of utilities. 
 In addition, it provides a strong architectural backbone for all kind of ML-Application, being it classic, or graph based, allowing them to flourish in harmony and synergy.
@@ -134,15 +135,15 @@ In addition and out of curiosity (in Vadalog/Datalog), a **cozoDB** has also bee
 
 
 
-## Methods for building the Knowledge Graph(s): 
+## 3.2 Methods for building the Knowledge Graph(s): 
 As introduced before, the `ABT_BASE_TABLE_KG_GENERATION` will be used as a starting point for the generation of a (continually updated) *Knowledge Graph*
 In order to do so, the data of the table above will be transformed into a Knowledge Graph based on the Ontology sketched in *Image 2*.
 This has been achieved with the help of `src/KG_Building_Handler.py` that sets up the KG and continuously integrates new data into it. In order to be able to potentially manage multiple KG's, each KG is built inside its own Schema.
 For further separation, multiple instances can easily be created due to the Docker based architecture.
 
 
-# Analytics / Methods
-## 1. Knowledge Graph Embeddings
+# 4 Analytics / Methods
+## 4.1 Knowledge Graph Embeddings
 One very important factor for customer satisfaction in this industry is the quality of the appartement cleanings. With increasing numbers of properties under management, assessing this quality can become a very time-consuming and inefficient process.
 So the idea here is to offer the business owners a application that helps to assess the quality of the appartement cleanings.
 As this is a very specific use case, a general (not fine-tuned and industry specific) model like BERT is assumed to be only of limited help.
@@ -165,10 +166,10 @@ The implementation can be found in `src/Embeddings_Handler.py`.
 
 ####  Embeddings Results
 
-## 2. Logic Based Reasoning on the KG
+## 4.2 Logic Based Reasoning on the KG
 After testing the effectiveness of the TransE Embeddings, logical queries have been developed and executed to answer the analytics questions proposed in the introduction:
 
-### 1. List of cleaning personal that is linked to the best/worst customer experiences: 
+### 4.2.1 List of cleaning personal that is linked to the best/worst customer experiences: 
 For this purpose, I identified the following logical query: 
 ```cypher
     // Match cleaning personnel and their associated reviews and emotions
