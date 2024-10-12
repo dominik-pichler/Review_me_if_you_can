@@ -157,7 +157,7 @@ $$
 
 TransE has been selected as suitable model and trained/learned the following way:
 <br>
-<div style="display: flex; justify-content: center;">
+<div style="width: 100%; display: flex; justify-content: center;">
     <img src="drawings/img.png" alt="TransE Learning" style="width: 70%;">
 </div>
 <br>
