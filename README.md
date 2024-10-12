@@ -84,7 +84,7 @@ Finally, the resulting data has been stored in the following ABT `ABT_BASE_TABLE
 - Due to my limited local computational resources, I have only selected a small sample from the original data. Nonetheless, this project has been designed in a scalable way and the entirety of the data could be easily processed with the help of more computational resources easily with a simple deployment to AWS. 
 
 
-# 3. Architecture
+# 3. KGMS and KG Construction 
 As mentioned before, the application utilizes data that has been fetched from *KROSS Booking* and *TimeTac* via their internal APIs is currently stored in a AWS RDS in multiple tables using the architecture displayed below:
 <br>
 <br>
@@ -100,22 +100,27 @@ Once the data has been fetched successfully, is then stored in extraction tables
 
 In the meantime, an adapter (also running in a different *AWS Lamda Container*), is daily fetching new review data from the ABT, sends the reviews to a sentiment model (`sentiment_model.py`) that returns sentiment scores for each review.
 After that, the data gets transformed into a graph-structure and then added to an on-premise *Neo4J* Database (dockerized) via a python script:  `src/KG_Building_Handler.py`.
+This script iterates over every row in the ABT, transforms it based on the Ontology below and adds it to Neo4j.
+In case a certain Node already exists (for example, an appartement has already been booked before), the script uses Cypher to determine this and instead of creating a new node of this kind, the already existing ndoe will be used.
+
 
 Through this procedure described above, the KG is continuously fed with the newest data available and therefore constantly evolving.
 The resulting KG then contains the following set of nodes and edges, per row in the original ABT:
 ![KG_Architecture](drawings/KG_Architecture.svg)
 
 
-**Side Node:** During the initial creation, the edges to the *Quality Indication* are only available for a subgroup (The training set) , as those are edges that should be learned with the help of *TransE*. 
+
+**Side Notes:** 
+- During the initial creation, the edges to the *Quality Indication* are only available for a subgroup (The training set) , as those are edges that should be learned with the help of *TransE*. 
 <br>
 
 ## 3.1 Technologies used:  
-Starting out, the *AWS Suite* (running *Python* and *PostgreSQL*) was chosen for data fetching, job scheduling and classic RDBS (using PostGRES as Single Source of Truth).
-Part of the decision for this technology suit was it's general purpose,it's time proven quality, high scalability and wide array of utilities. 
-In addition, it provides a strong architectural backbone for all kind of ML-Application, being it classic, or graph based, allowing them to flourish in harmony and synergy.
+Starting out, the *AWS Suite* (running *Python* and *PostgreSQL*) was chosen for data fetching, job scheduling and classic RDBS (using PostgreSQL as Single Source of Truth).
+Part of the decision for this technology suit was, that it's general purpose, time proven quality, high scalability and offers wide array of utilities. 
+In addition, it provides a strong architectural backbone for all kind of ML-Application, being it classic, or graph based machine learning, allowing them to flourish in harmony and synergy.
 
 
-Furthermore *Neo4j* was then chose as a database for storing the built Knowledge Graph(s), while other database have been investigated, some being: 
+Furthermore *Neo4j* was then chose as a graph database for storing the built Knowledge Graph(s), while other database have been investigated, some being: 
 - Amazons's own solution - Neptune
 - Microsoft's Azure Cosmos DB
 - Dgraph
@@ -131,11 +136,6 @@ In addition and out of curiosity (in Vadalog/Datalog), a **cozoDB** has also bee
 
 
 
-## 3.2 Methods for building the Knowledge Graph(s): 
-As introduced before, the `ABT_BASE_TABLE_KG_GENERATION` will be used as a starting point for the generation of a (continually updated) *Knowledge Graph*
-In order to do so, the data of the table above will be transformed into a Knowledge Graph based on the Ontology sketched in *Image 2*.
-This has been achieved with the help of `src/KG_Building_Handler.py` that sets up the KG and continuously integrates new data into it. In order to be able to potentially manage multiple KG's, each KG is built inside its own Schema.
-For further separation, multiple instances can easily be created due to the Docker based architecture.
 
 
 # 4 Analytics / Methods
@@ -156,9 +156,6 @@ Quality_Indication(Review) =
 $$
 
 The implementation can be found in `src/Embeddings_Handler.py`.
-
-
-
 
 ####  Embeddings Results
 
