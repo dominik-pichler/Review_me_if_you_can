@@ -37,7 +37,7 @@ This data that has been used to construct the KG has been  derived (as depicted 
 
 2. **TimeTac**: <br> A plattform that allows to track process times of (cleaning) people. In this case, it is used to track and access data about who has cleaned which apartment, when and for how long.
 
-In addition (for advanced analytics), the collected reviews (via KRoss Booking) are automatically translated and pre-evaluated via a sentiment analysis.   
+In addition (for advanced analytics), the collected reviews (via Kross Booking) are automatically translated and pre-evaluated via a sentiment analysis.   
 1. **Translation:**<br>
    As the customers of the appartements can (and have been) writing reviews in more than 150 different languages, I had to start out by translating them.
    For this purpose, I used the `src/review_process_utils/review_translor.py` script that utilizes the `googleTrans` package to translate all reviews (if possible) to english.
@@ -93,15 +93,16 @@ As mentioned before, the application utilizes data that has been fetched from *K
 <br>
 
 
-In the beginning the data is being fetched from the two API's utilizing a python script that runs in a *AWS Lamda Container* that is being executed once per day.
-The data fetched, is then stored in extraction tables in an *PostgreSQL* DB stored in an *AWS RDS Instance* (serving as central source of truth) and then automatically (via *AWS Lamda* again) processed into the bespoken ABT.
+In the beginning the data is being fetched from the two API's utilizing a python script that runs in a *AWS Lamda Container* that is being executed once per day (at midnight).
+Once the data has been fetched successfully, is then stored in extraction tables in a *PostgreSQL* DB stored in an *AWS RDS Instance* (serving as central source of truth) and then automatically (via *AWS Lamda* again) processed into the aforementioned ABT.
 
-In the meantime, an adapter (for now, running on-premise in a docker container), is daily fetching new booking data from the ABT, sends the reviews to a sentiment model (`sentiment_model.py`) that returns sentiment scores for each review.
-After that, the data gets transformed into a graph-structure and then added to an on-premise *Neo4J* Database (dockerized) to store the KG.
+In the meantime, an adapter (also running in a different *AWS Lamda Container*), is daily fetching new review data from the ABT, sends the reviews to a sentiment model (`sentiment_model.py`) that returns sentiment scores for each review.
+After that, the data gets transformed into a graph-structure and then added to an on-premise *Neo4J* Database (dockerized) via a python script:  `src/KG_Building_Handler.py`.
 
 Through this procedure described above, the KG is continuously fed with the newest data available and therefore constantly evolving.
+The resulting KG then contains the following set of nodes and edges, per row in the original ABT:
 ![KG_Architecture](drawings/KG_Architecture.svg)
-
+**Side Node:** During the initial creation, the edges to the *Qualitiy Indiction* are only available for a subgroup (The training set) , as those are edges that should be learned with the help of *TransE*. 
 <br>
 
 ## Technologies used:  
