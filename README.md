@@ -155,9 +155,12 @@ Quality_Indication(Review) =
 \end{cases}
 $$
 
-TransE has been selected as suitable model and trained via: 
-![img.png](img.png)
-
+TransE has been selected as suitable model and trained/learned the following way:
+<br>
+<div style="display: flex; justify-content: center;">
+    <img src="drawings/img.png" alt="TransE Learning" style="width: 70%;">
+</div>
+<br>
 
 
 The implementation can be found in `src/Embeddings_Handler.py`.
