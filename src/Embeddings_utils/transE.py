@@ -15,7 +15,7 @@ driver = GraphDatabase.driver(uri, auth=(username, password))
 # Define a function to fetch relevant triples
 def fetch_triples():
     query = """
-    MATCH (rev:Review)-[:HAS_PERCEIVED_CLEANING]->(ca:PerceivedCleaningQuality)-[:INDICATES_CLEANING_QUALITY]->(r:Reinigungsmitarbeiter)
+    MATCH (rev:Review)-[:HAS_PERCEIVED_CLEANING]->(ca:PerceivedCleaningQuality)
     RETURN rev.text AS Review_Text, 
            ca.text AS Perceived_Cleaning_Quality,
            r.name AS ReinigungsMitarbeiter
@@ -87,7 +87,6 @@ class TripleDataset(Dataset):
 
         self.entity_to_idx = {entity: idx for idx, entity in enumerate(self.entities)}
         self.relation_to_idx = {relation: idx for idx, relation in enumerate(self.relations)}
-
         self.triples = [(self.entity_to_idx[h], self.relation_to_idx[r], self.entity_to_idx[t]) for h, r, t in triples]
 
     def __len__(self): return len(self.triples)

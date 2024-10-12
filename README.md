@@ -147,7 +147,7 @@ Therefore, a train-dataset (50% of the entire dataset) consisting of manually la
 <br>
 
 $$
-Quality_Indication(Review) = 
+\text{Quality_Indication(Review)} = 
 \begin{cases}
 \text{great cleaning quality}, & \text{If good cleaning explicitly mentioned }  \\
 \text{neutral cleaning quality}, & \text{If no problems mentioned in the review }  \\ 
@@ -155,12 +155,21 @@ Quality_Indication(Review) =
 \end{cases}
 $$
 
+
+Hence, the goal is to solve the following: 
+
+![TransE_Goal.svg](drawings%2FTransE_Goal.svg)
+
+
 TransE has been selected as suitable model and trained/learned the following way:
 <br>
 <div style="width: 100%; display: flex; justify-content: center;">
     <img src="drawings/img.png" alt="TransE Learning" style="width: 70%;">
 </div>
 <br>
+
+![TransE_training.svg](drawings%2FTransE_training.svg)
+
 
 
 The implementation can be found in `src/Embeddings_Handler.py`.
