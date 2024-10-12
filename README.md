@@ -154,12 +154,16 @@ $$
 \text{bad cleaning quality}, & \text{Else }
 \end{cases}
 $$
+<br>
 
 
 Hence, the goal is to solve the following: 
 
-![TransE_Goal.svg](drawings%2FTransE_Goal.svg)
-
+<br>
+<div style="width: 100%; display: flex; justify-content: center;">
+    <img src="drawings/TransE_Goal.svg" alt="TransE Learning" style="width: 70%;">
+</div>
+<br>
 
 TransE has been selected as suitable model and trained/learned the following way:
 <br>
