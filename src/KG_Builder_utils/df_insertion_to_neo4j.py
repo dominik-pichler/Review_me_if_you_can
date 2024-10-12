@@ -61,9 +61,9 @@ def insert_and_connect_data(tx, row_data):
         query += (
             """
             WITH b, s, a, r, rev, em, sc
-            MERGE (ca:PerceivedCleaningQuality {text: $perceived_cleaning_quality})
-            CREATE (ca)-[:INDICATES_CLEANING_QUALITY]->(r)
-            CREATE (rev)-[:HAS_PERCEIVED_CLEANING]->(ca)
+            MERGE (ca:Quality_Indication {text: $perceived_cleaning_quality})
+            CREATE (ca)<-[:has_indicating_cleaning_quality]-(r)
+            CREATE (rev)-[:indicates_perceived_cleaning_quality]->(ca)
 
             """
         )
