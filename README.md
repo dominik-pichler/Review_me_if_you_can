@@ -166,11 +166,42 @@ The implementation can be found in `src/Embeddings_Handler.py`.
 
 ####  Embeddings Results
 
-## 4.2 Logic Based Reasoning on the KG
+
+
+
+## 4.2 GNNs and the KG
+The first analysis concerns the high density regions, and hence grouping, meaning, I want know if the entire graph can be clustered into interesting clusters
+For this task I have oriented on the paper of  [Tsitsulin et.al. (2023)](https://www.jmlr.org/papers/volume24/20-998/20-998.pdf)
+In this paper, the authors have compared the following different methods, including their basic properties and introduced their own Methode *Deep Modularity Networks* (**DMoN**). 
+
+| Method   | End-to-end | Unsup. | Node pooling | Sparse | Soft assign. | Stable | Complexity |
+|----------|------------|--------|--------------|--------|--------------|--------|------------|
+| Graclus  | N          | Y      | Y            | Y      | N            | Y      | O(dn + m)  |
+| DiffPool | Y          | Y      | Y            | N      | Y            | N      | O(dn²)     |
+| AGC      | N          | Y      | Y            | N      | N            | N      | O(dn²k)    |
+| DAEGC    | N          | Y      | Y            | Y      | N            | N      | O(dnk)     |
+| SDCN     | N          | Y      | Y            | Y      | N            | N      | O(d²n + m) |
+| NOCD     | Y          | Y      | Y            | Y      | Y            | Y      | O(dn + m)  |
+| Top-k    | Y          | N      | N            | Y      | N            | Y      | O(dn + m)  |
+| SAG      | N          | N      | Y            | N      | N            | N      | O(dn + m)  |
+| MinCut   | Y          | Y      | Y            | Y      | Y            | N      | O(d²n + m) |
+| DMoN     | Y          | Y      | Y            | Y      | Y            | Y      | O(d²n + m) |
+
+
+Intrigued by their claims, I wanted to test **DMoN** on my own knowledge graph. 
+
+
+Therefore, with the help of **PyTorch Geometric** I wrote a script to run this method on my onw KG.
+This script can be found in `src/GNN_Handler.py`.
+ **PyTorch Geometric** was chosen over other Frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
+
+#### GNN Results
+
+## 4.3 Logic Based Reasoning on the KG
 After testing the effectiveness of the TransE Embeddings, logical queries have been developed and executed to answer the analytics questions proposed in the introduction:
 
-### 4.2.1 List of cleaning personal that is linked to the best/worst customer experiences: 
-For this purpose, I identified the following logical query: 
+### 4.3.1 List of cleaning personal that is linked to the best/worst customer experiences: 
+For this purpose, I designed the following logical query: 
 ```cypher
     // Match cleaning personnel and their associated reviews and emotions
     MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
@@ -202,7 +233,8 @@ For this purpose, I identified the following logical query:
 ```
 
 
-- A list of apartments that are linked to the best/worst customer experiences.
+### 4.3.2 List of apartments that are linked to the best/worst customer experiences.
+For this purpose, I designed the following logical query: 
 
 ```cypher
     // Match apartments and their associated reviews and emotions
@@ -239,7 +271,7 @@ For this purpose, I identified the following logical query:
 ```
 
 
-- A analysis to identify if certain cleaning people or appartements became a central node in a node of dissatisfaction or form a cluster.
+### 4.3.3 A analysis to identify if certain cleaning people or appartements became a central node in a node of dissatisfaction or form a cluster.
 I identified this via: 
 
 ```cypher
@@ -259,46 +291,36 @@ I identified this via:
 ```
 
 
-#### LBR Results
 
+### 4.3.4 I could add a tag of "High Performers" and "Low Performers"
 
+### 4.3.5 I could add tags for the appartments: Problematic/Unproblementic appartments
 
-## 3. GNNs on the KG
-The first analysis concerns the high density regions, and hence grouping, meaning, I want know if the entire graph can be clustered into interesting clusters
-For this task I have oriented on the paper of  [Tsitsulin et.al. (2023)](https://www.jmlr.org/papers/volume24/20-998/20-998.pdf)
-In this paper, the authors have compared the following different methods, including their basic properties and introduced their own Methode *Deep Modularity Networks* (**DMoN**). 
+### 4.3.6 Evolvment of the Knowledge Graph
+- Does it update/correct the KG? 
 
-| Method   | End-to-end | Unsup. | Node pooling | Sparse | Soft assign. | Stable | Complexity |
-|----------|------------|--------|--------------|--------|--------------|--------|------------|
-| Graclus  | N          | Y      | Y            | Y      | N            | Y      | O(dn + m)  |
-| DiffPool | Y          | Y      | Y            | N      | Y            | N      | O(dn²)     |
-| AGC      | N          | Y      | Y            | N      | N            | N      | O(dn²k)    |
-| DAEGC    | N          | Y      | Y            | Y      | N            | N      | O(dnk)     |
-| SDCN     | N          | Y      | Y            | Y      | N            | N      | O(d²n + m) |
-| NOCD     | Y          | Y      | Y            | Y      | Y            | Y      | O(dn + m)  |
-| Top-k    | Y          | N      | N            | Y      | N            | Y      | O(dn + m)  |
-| SAG      | N          | N      | Y            | N      | N            | N      | O(dn + m)  |
-| MinCut   | Y          | Y      | Y            | Y      | Y            | N      | O(d²n + m) |
-| DMoN     | Y          | Y      | Y            | Y      | Y            | Y      | O(d²n + m) |
-
-
-Intrigued by their claims, I wanted to test **DMoN** on my own knowledge graph. 
-
-
-Therefore, with the help of **PyTorch Geometric** I wrote a script to run this method on my onw KG.
-This script can be found in `src/GNN_Handler.py`.
- **PyTorch Geometric** was chosen over other Frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
-
-#### GNN Results
-
-
-# Results: 
+### 4.3.7 Context and Limitations
+- Scaling? 
+- how to make it scaleable?
+- 
+### 4.3.7 Results/Summary of Logic-based Representation
+The results of 4.2.1 - 4.2.3 can be viewed in a streamlit application that can be started via navigating into `src` and and 
+running 
+```
+python streamlit run Logic_Analysis_Dashboard.py
+```
 
 
 
 
 
-## Presentation Layer: 
+# 5 Results: 
+
+
+
+
+
+## 5.1 Presentation Layer: 
 In order to present the determined results, I decided to use *Streamlit* to create a small dashboard, that can then be used 
 in a real life application as **customer satisfaction and cleaning quality monitor**
 I chose *Streamlit* mainly due to its ease of use, its excellence when it comes to rapid prototyping that still comes with very good user experience that can be designed in a typical pythonic way.
@@ -308,14 +330,14 @@ The thereby built dashboard can be found under `src/dashboards/monitoring_dashbo
 
 
 
-# Conclusion: 
+## 5.2 Reflections: 
 
 
 
 
 
 
-# How to use: 
+# PS: How to use: 
 1. Start the Neo4j database via: 
 ```shell
 docker-compose up -d
