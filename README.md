@@ -147,7 +147,7 @@ Therefore, a train-dataset (50% of the entire dataset) consisting of manually la
 <br>
 
 $$
-\text{Quality_Indication(Review)} = 
+\text{Quality Indication(Review)} = 
 \begin{cases}
 \text{great cleaning quality}, & \text{If good cleaning explicitly mentioned }  \\
 \text{neutral cleaning quality}, & \text{If no problems mentioned in the review }  \\ 
