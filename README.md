@@ -155,10 +155,14 @@ Quality_Indication(Review) =
 \end{cases}
 $$
 
+TransE has been selected as suitable model and trained via: 
+![img.png](img.png)
+
+
+
 The implementation can be found in `src/Embeddings_Handler.py`.
 
 ####  Embeddings Results
-
 
 
 
