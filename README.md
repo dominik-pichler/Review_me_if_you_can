@@ -1,29 +1,25 @@
-## Knowledge Graphs for BnBs
-
 
 ![Cleaning_Graph](drawings/graph_fully_con.svg)
 
 
-
-
 # 1. Introduction
-## 1.1 The Scenario
+## 1.1 Scenario
 Short-Term Renting business (STR) is hard, but without the right monitoring tools for customer satisfaction, it is even harder (then it has to be). 
-This Project utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in **identifying issues** regarding their cleaning services and customer satisfactions. 
-In particular, it is aiming at identifying if certain appartements or cleaning personals form clusters/sources of exceptionally good or bad customer experiences.
+This Project utilizes modern Knowledge-Graph-based Approaches to assist hotels and short-term rental businesses in **identifying key issues** regarding their cleaning services and customer satisfactions. 
+In particular, it is aiming at identifying if certain appartements or cleaning personals form clusters/sources of extrem good or bad customer experiences.
 
 ### 1.1.1 Proposed Analytics and Solutions
 For this reason, this project provides a presentation layer (via a `streamlit` application) that displays the following information to the user: 
 - A list of cleaning personal that is linked to the best/worst customer experiences. 
 - A list of apartments that are linked to the best/worst customer experiences.
-- A analysis to identify if certain cleaning people or appartements became a central node in a node of dissatisfaction or form a cluster.
-- Advanced analytics of the customer reviews utilizing *Deep Modularity Networks* and *TransE*
+- An analysis to identify if certain cleaning people or appartements became a central node in a node of bad customer experiences or form a cluster utilizing utilizing *Deep Modularity Networks*.
+- A list of cleaners that are assumed to have a high record of bad cleaning quality, which is determined through the use of a Graph Embedding-Technique (*TransE*) that learns whether a review indicates a bad cleaning quality. 
 
 Eventually, this insight could then be used to infer insights for improvements in cleaning protocols, appartements and eventually customer satisfaction. 
 
 ## 1.2 Background
 In the hotel/STR business, a common SaaS Stack is the combination of [Kross Booking](https://www.krossbooking.com/en) that provides PMS + Channel Manager + Booking Engine in one solution, in combination with [TimeTac](https://www.timetac.com/en/) that allows 
-for smart time tracking of all internal processes. 
+for smart time tracking of all internal (cleaning) processes. 
 While the above is great for managing daily operations, the amount of data insight that can be extracted out of the box is pretty limited and. 
 Hence, business owners of certain scales that use the SaaS stack described above are left with high amounts of manual analytical effort with still limited insights   
 Therefore, this project tries to reduce the amount of manual effort needed, as well as to increase the quality of insight possible.
@@ -36,39 +32,40 @@ This data that has been used to construct the KG has been  derived (as depicted 
 ## 2.1 Raw Data
 ### 2.1.1 Kross Booking
 A plattform that works as booking engine for the management of hotels/appartements. In this case, it is used to manage all bookings (and everything related) across all appartements/hotels.
-The stored data can be fetched via a REST-API following the OpenAPI Standard
+The stored data about the bookings can be fetched via a REST-API following the OpenAPI Standard.
 ### 2.1.2 TimeTac
 A plattform that allows to track process times of (cleaning) people. In this case, it is used to track and access data about who has cleaned which apartment, when and for how long.
-The stored data can be fetched via a REST-API following the OpenAPI Standard
+The stored data about cleaning durations can be fetched via a REST-API following the OpenAPI Standard
 
 ## 2.2 Additionally derived Data
-In addition, (for advanced analytics), the collected reviews (via Kross Booking) are automatically translated and pre-evaluated via a sentiment analysis.   
+   In addition, the collected reviews (via Kross Booking) are automatically translated and pre-evaluated with a sentiment model.   
 ### 2.2.1 Translation
-   As the customers of the appartements can (and have been) writing reviews in more than 150 different languages, I had to start out by translating them.
+   As the customers of the appartements can (and have been) writing reviews in more than 150 different languages, I had to start out by translating them to a single language.
    For this purpose, I used the `src/review_process_utils/review_translor.py` script that utilizes the `googleTrans` package to translate all reviews (if possible) to english.
 
 
 ### 2.2.2 Sentiment Analysis 
-   In addition, for effective review filtering/pre-selection, a sentiment analysis utilizing [DistilRoBERTa](https://huggingface.co/j-hartmann/emotion-english-distilroberta-base)
-   has been implemented to categorize the reviews along [Paul Ekman's 6 basic dimensions](https://www.paulekman.com/wp-content/uploads/2013/07/Basic-Emotions.pdf) + one neural dimension. 
+   In addition, for effective review analysis, a sentiment analysis utilizing [DistilRoBERTa](https://huggingface.co/j-hartmann/emotion-english-distilroberta-base)
+   has been implemented to categorize the reviews along [Paul Ekman's 6 basic dimensions](https://www.paulekman.com/wp-content/uploads/2013/07/Basic-Emotions.pdf) + one neural dimension in case no particular emotion has been detected. 
    The corresponding script can be found in `src/Review_Handler.py`
    
 ### 2.2.3 Results
-Finally this translation and sentiment analysis yielded the following additional review data for the knowledge graph: 
+The two additional operations, the translation and sentiment analysis then yielded the following additional review data per Booking_ID for the knowledge graph: 
 
 | Column Name            | Data Type |
 |------------------------|-----------|
 | Booking_ID  (PK)       | INT       |
 | Translated_Review_Text | TEXT      |  
 | Primary_Emotion        | TEXT      |
+| Sentiment_Score        | FLOAT     |
 | Cleaning_Quality       | INT       |
 
-For simplification purposes this table is also stored in the AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB or AWS Dynamo DB could be made, but
+For simplification purposes this data is also stored in the AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB or AWS Dynamo DB could be made, but
 due to the limited scope of this project I have decided to keep the overhead low and not setup another DB.
 
 
-## 2.3 Data Set for the KG-Generation
-Finally, this results in the following ABT `ABT_BASE_TABLE_KG_GENERATION` that will be used for building the Knowledge Graph: 
+## 2.3 Data for the KG-Generation
+Finally, the resulting data has been stored in the following ABT `ABT_BASE_TABLE_KG_GENERATION` that will be used for building the Knowledge Graph: 
 
 | Column Name            | Data Type  | Source        |
 |------------------------|------------|---------------|
@@ -79,13 +76,12 @@ Finally, this results in the following ABT `ABT_BASE_TABLE_KG_GENERATION` that w
 | Translated_Review_Text | TEXT       | KROSS         |
 | Primary_Emotion        | TEXT       | ML Model      |
 | Sentiment_Score        | FLOAT      | ML Model      |
-| Cleaning_Quality       | INT        | Manual/TransE |  
+| Quality_Indication     | INT        | Manual/TransE |  
 
 
-**Side Node:**
-For this demonstration purpose, the production data has been used and been anonymized using `src/data_anonimizer.py` and stored in `data\demo_data.csv`
-Due to my limited local computational resources, I have only selected a small sample from the original data.
-Nonetheless, this project has been designed in a scalable way and the entirety of the data could be easily processed with the help of more computational resources easily with a simple deployment to AWS. 
+**Side Notes:**
+- For this demonstration purpose, the production data has been used and been anonymized using `src/data_anonimizer.py` and stored in `data\demo_data.csv`
+- Due to my limited local computational resources, I have only selected a small sample from the original data. Nonetheless, this project has been designed in a scalable way and the entirety of the data could be easily processed with the help of more computational resources easily with a simple deployment to AWS. 
 
 
 # 3. Architecture
@@ -110,7 +106,7 @@ The resulting KG then contains the following set of nodes and edges, per row in 
 ![KG_Architecture](drawings/KG_Architecture.svg)
 
 
-**Side Node:** During the initial creation, the edges to the *Qualitiy Indiction* are only available for a subgroup (The training set) , as those are edges that should be learned with the help of *TransE*. 
+**Side Node:** During the initial creation, the edges to the *Quality Indication* are only available for a subgroup (The training set) , as those are edges that should be learned with the help of *TransE*. 
 <br>
 
 ## 3.1 Technologies used:  
