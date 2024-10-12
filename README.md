@@ -168,7 +168,14 @@ TransE has been selected as suitable model and trained/learned the following way
 </div>
 <br>
 
-![TransE_training.svg](drawings%2FTransE_training.svg)
+<br>
+
+<br>
+<div style="width: 100%; display: flex; justify-content: center;">
+    <img src="drawings/TransE_training.svg" alt="TransE Learning" style="width: 70%;">
+</div>
+<br>
+
 
 
 
