@@ -6,13 +6,13 @@
 
 
 
-# Introduction
-## The Scenario
+# 1. Introduction
+## 1.1 The Scenario
 Short-Term Renting business (STR) is hard, but without the right monitoring tools for customer satisfaction, it is even harder (then it has to be). 
 This Project utilizes modern Knowledge-Graph Approaches to assist hotels and short-term rental businesses in **identifying issues** regarding their cleaning services and customer satisfactions. 
 In particular, it is aiming at identifying if certain appartements or cleaning personals form clusters/sources of exceptionally good or bad customer experiences.
 
-### The Analytics
+### 1.1.1 The Analytics
 For this reason, this project provides a presentation layer (via a `streamlit` application) that displays the following information to the user: 
 - A list of cleaning personal that is linked to the best/worst customer experiences. 
 - A list of apartments that are linked to the best/worst customer experiences.
@@ -21,7 +21,7 @@ For this reason, this project provides a presentation layer (via a `streamlit` a
 
 Eventually, this insight could then be used to infer insights for improvements in cleaning protocols, appartements and eventually customer satisfaction. 
 
-# Background
+## 1.2 Background
 In the hotel/STR business, a common SaaS Stack is the combination of [Kross Booking](https://www.krossbooking.com/en) that provides PMS + Channel Manager + Booking Engine in one solution, in combination with [TimeTac](https://www.timetac.com/en/) that allows 
 for smart time tracking of all internal processes. 
 While the above is great for managing daily operations, the amount of data insight that can be extracted out of the box is pretty limited and. 
@@ -30,20 +30,25 @@ Therefore, this project tries to reduce the amount of manual effort needed, as w
 
 
 
-## Data Source
+# 2. Data Source
 This data that has been used to construct the KG has been  derived (as depicted later on in the architecture section) from two APIs:
-1. **Kross Booking**: <br> A plattform that works as booking engine for the management of hotels/appartements. In this case, it is used to manage all bookings (and everything related) across all appartements/hotels.
 
+## 2.1 Raw Data
+### 2.1.1 Kross Booking
+A plattform that works as booking engine for the management of hotels/appartements. In this case, it is used to manage all bookings (and everything related) across all appartements/hotels.
+The stored data can be fetched via a REST-API following the OpenAPI Standard
+### 2.1.2 TimeTac
+A plattform that allows to track process times of (cleaning) people. In this case, it is used to track and access data about who has cleaned which apartment, when and for how long.
+The stored data can be fetched via a REST-API following the OpenAPI Standard
 
-2. **TimeTac**: <br> A plattform that allows to track process times of (cleaning) people. In this case, it is used to track and access data about who has cleaned which apartment, when and for how long.
-
-In addition (for advanced analytics), the collected reviews (via Kross Booking) are automatically translated and pre-evaluated via a sentiment analysis.   
-1. **Translation:**<br>
+## 2.2 Additionally derived Data
+In addition, (for advanced analytics), the collected reviews (via Kross Booking) are automatically translated and pre-evaluated via a sentiment analysis.   
+### 2.2.1 Translation
    As the customers of the appartements can (and have been) writing reviews in more than 150 different languages, I had to start out by translating them.
    For this purpose, I used the `src/review_process_utils/review_translor.py` script that utilizes the `googleTrans` package to translate all reviews (if possible) to english.
 
 
-2. **Sentiment Analysis**: <br> 
+### 2.2.2 Sentiment Analysis 
    In addition, for effective review filtering/pre-selection, a sentiment analysis utilizing [DistilRoBERTa](https://huggingface.co/j-hartmann/emotion-english-distilroberta-base)
    has been implemented to categorize the reviews along [Paul Ekman's 6 basic dimensions](https://www.paulekman.com/wp-content/uploads/2013/07/Basic-Emotions.pdf) + one neural dimension. 
    The corresponding script can be found in `src/Review_Handler.py`
@@ -141,13 +146,13 @@ For further separation, multiple instances can easily be created due to the Dock
 One very important factor for customer satisfaction in this industry is the quality of the appartement cleanings. With increasing numbers of properties under management, assessing this quality can become a very time-consuming and inefficient process.
 So the idea here is to offer the business owners a application that helps to assess the quality of the appartement cleanings.
 As this is a very specific use case, a general (not fine-tuned and industry specific) model like BERT is assumed to be only of limited help.
-Therefore, a train-dataset (50% of the entire dataset) consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *indicates_perceived_cleaning_quality* relationship as well as the *has_indicating_cleaning_quality* relationship from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the following constraint holds true:
+Therefore, a train-dataset (50% of the entire dataset) consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *indicates_perceived_cleaning_quality* relationship from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the logic for the relationship connection should be the following:
 <br>
 
 $$
 Quality_Indication(Review) = 
 \begin{cases}
-\text{great cleaning quality}, & \text{If good cleaning \textbf{explicitly} mentioned }  \\
+\text{great cleaning quality}, & \text{If good cleaning explicitly mentioned }  \\
 \text{neutral cleaning quality}, & \text{If no problems mentioned in the review }  \\ 
 \text{bad cleaning quality}, & \text{Else }
 \end{cases}
@@ -161,9 +166,10 @@ The implementation can be found in `src/Embeddings_Handler.py`.
 ####  Embeddings Results
 
 ## 2. Logic Based Reasoning on the KG
+After testing the effectiveness of the TransE Embeddings, logical queries have been developed and executed to answer the analytics questions proposed in the introduction:
 
-- A list of cleaning personal that is linked to the best/worst customer experiences. 
-
+### 1. List of cleaning personal that is linked to the best/worst customer experiences: 
+For this purpose, I identified the following logical query: 
 ```cypher
     // Match cleaning personnel and their associated reviews and emotions
     MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
