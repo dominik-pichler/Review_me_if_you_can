@@ -170,9 +170,6 @@ To solve this problem, I decided to use KG Embeddings. Even though I was only (t
 such as *TransF*, *PairRE*, *QuatE* and many more ...
 
 
-
-
-
 For now *TransE* has been selected as suitable model and trained/learned the following way:
 <br>
 <div style="width: 100%; display: flex; justify-content: center;">
@@ -184,11 +181,9 @@ For now *TransE* has been selected as suitable model and trained/learned the fol
 
 <br>
 <div style="width: 100%; display: flex; justify-content: center;">
-    <img src="drawings/TransE_training.svg" alt="TransE Learning" style="width: 70%;">
+    <img src="drawings/TransE_training.svg" alt="TransE Learning" style="width: 90%;">
 </div>
 <br>
-
-
 
 
 The implementation can be found in `src/Embeddings_Handler.py`.
@@ -197,18 +192,18 @@ The implementation can be found in `src/Embeddings_Handler.py`.
 On the very small test-set the Model yielded the following proposed connections.
 As one can see, the small training-set does not produce very sophisticated results, but at offers the framework for large-scale training.
 
-| head_label                                                                                                                                | relation_label                        | tail_label             | score     |
-|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|------------------------|-----------|
-| Everything was perfect!                                                                                                                   | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.608245 |
-| Good for the price                                                                                                                        | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.475592 |
-| Great stay                                                                                                                                | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.642992 |
-| Great stay, thank you.                                                                                                                    | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.475699 |
-| Great value. We slept 4 adults in two double beds, with a clean bathroom and kitchen.                                                     | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.701354 |
-| It was a great base for my travels, thank you!                                                                                            | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.514512 |
-| Nice and comfortable place.                                                                                                               | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.594642 |
-| Nice place to stay. Good value for money.                                                                                                 | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.520994 |
-| Nice quiet hotel. Fastlane station to city center approx. 10 min away. The room was clean but there were some bags of the guests before   | indicates_perceived_cleaning_quality  | great_cleaning_quality | -0.988858 |
-| Our stay was just amazing. The best location and a clean room.                                                                            | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.762633 |
+| Review_Text                                                                                                                             | Edge                                 | Quality_Indication     | score     |
+|-----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|------------------------|-----------|
+| Everything was perfect!                                                                                                                 | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.608245 |
+| Good for the price                                                                                                                      | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.475592 |
+| Great stay                                                                                                                              | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.642992 |
+| Great stay, thank you.                                                                                                                  | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.475699 |
+| Great value. We slept 4 adults in two double beds, with a clean bathroom and kitchen.                                                   | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.701354 |
+| It was a great base for my travels, thank you!                                                                                          | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.514512 |
+| Nice and comfortable place.                                                                                                             | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.594642 |
+| Nice place to stay. Good value for money.                                                                                               | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.520994 |
+| Nice quiet hotel. Fastlane station to city center approx. 10 min away. The room was clean but there were some bags of the guests before | indicates_perceived_cleaning_quality | great_cleaning_quality | -0.988858 |
+| Our stay was just amazing. The best location and a clean room.                                                                          | indicates_perceived_cleaning_quality | bad_cleaning_quality   | -0.762633 |
 
 
 ## 4.2 GNNs and the KG
