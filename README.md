@@ -140,6 +140,7 @@ In addition and out of curiosity (in Vadalog/Datalog), a **cozoDB** has also bee
 
 # 4 Analytics / Methods
 ## 4.1 Knowledge Graph Embeddings
+### 4.1.1 Introduction
 One very important factor for customer satisfaction in this industry is the quality of the appartement cleanings. With increasing numbers of properties under management, assessing this quality can become a very time-consuming and inefficient process.
 So the idea here is to offer the business owners a application that helps to assess the quality of the appartement cleanings.
 As this is a very specific use case, a general (not fine-tuned and industry specific) model like BERT is assumed to be only of limited help.
@@ -165,6 +166,7 @@ Hence, the goal is to solve the following:
 </div>
 <br>
 
+### 4.1.2 Used Model(s)
 To solve this problem, I decided to use KG Embeddings. Even though I was only (timewise) able to test a single algorithm
 (TransE), the Code is oriented on  the GoF's Strategy, allowing fast implementation of other Embedding algorithms inherently available in the *PyKEEN* library
 such as *TransF*, *PairRE*, *QuatE* and many more ...
@@ -188,7 +190,7 @@ For now *TransE* has been selected as suitable model and trained/learned the fol
 
 The implementation can be found in `src/Embeddings_Handler.py`.
 
-####  Embeddings Results
+### 4.1.3  Embeddings Results
 On the very small test-set the Model yielded the following proposed connections.
 As one can see, the small training-set does not produce very sophisticated results, but at offers the framework for large-scale training.
 
@@ -207,6 +209,7 @@ As one can see, the small training-set does not produce very sophisticated resul
 
 
 ## 4.2 GNNs and the KG
+### 4.2.1 Introduction
 The first analysis concerns the high density regions, and hence grouping, meaning, I want know if the entire graph can be clustered into interesting clusters
 For this task I have oriented on the paper of  [Tsitsulin et.al. (2023)](https://www.jmlr.org/papers/volume24/20-998/20-998.pdf)
 In this paper, the authors have compared the following different methods, including their basic properties and introduced their own Methode *Deep Modularity Networks* (**DMoN**). 
@@ -225,6 +228,7 @@ In this paper, the authors have compared the following different methods, includ
 | DMoN     | Y          | Y      | Y            | Y      | Y            | Y      | O(d²n + m) |
 
 
+### 4.2.2 Used Model(s)
 Intrigued by their claims, I wanted to test **DMoN** on my own knowledge graph. 
 
 
@@ -232,7 +236,7 @@ Therefore, with the help of **PyTorch Geometric** I wrote a script to run this m
 This script can be found in `src/GNN_Handler.py`.
  **PyTorch Geometric** was chosen over other Frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
 
-#### GNN Results
+### 4.2.3 GNN Results
 
 ## 4.3 Logic Based Reasoning on the KG
 After testing the effectiveness of the TransE Embeddings, logical queries have been developed and executed to answer the analytics questions proposed in the introduction:
