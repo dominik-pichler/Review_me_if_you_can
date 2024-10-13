@@ -187,6 +187,18 @@ The implementation can be found in `src/Embeddings_Handler.py`.
 
 ####  Embeddings Results
 
+| head_label                                                                                                                                | relation_label                        | tail_label             | score     |
+|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|------------------------|-----------|
+| Everything was perfect!                                                                                                                   | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.608245 |
+| Good for the price                                                                                                                        | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.475592 |
+| Great stay                                                                                                                                | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.642992 |
+| Great stay, thank you.                                                                                                                    | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.475699 |
+| Great value. We slept 4 adults in two double beds, with a clean bathroom and kitchen.                                                     | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.701354 |
+| It was a great base for my travels, thank you!                                                                                            | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.514512 |
+| Nice and comfortable place.                                                                                                               | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.594642 |
+| Nice place to stay. Good value for money.                                                                                                 | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.520994 |
+| Nice quiet hotel. Fastlane station to city center approx. 10 min away. The room was clean but there were some bags of the guests before   | indicates_perceived_cleaning_quality  | great_cleaning_quality | -0.988858 |
+| Our stay was just amazing. The best location and a clean room.                                                                            | indicates_perceived_cleaning_quality  | bad_cleaning_quality   | -0.762633 |
 
 
 ## 4.2 GNNs and the KG
