@@ -1,22 +1,15 @@
-import pandas as pd
-import pandas as pd
-from pykeen.datasets import PathDataset
-from pykeen.pipeline import pipeline
 from neo4j import GraphDatabase
 from pykeen.triples import TriplesFactory
 from pykeen.pipeline import pipeline
-from pykeen.evaluation import RankBasedEvaluator
 import pandas as pd
-from itertools import product
 from pykeen.predict import predict_all
-import torch
 
 
+# Connections to Neo4j
+uri = "bolt://localhost:7687"
+driver = GraphDatabase.driver(uri, auth=("neo4j", "password"))
 
-uri = "bolt://localhost:7687"  # Update with your Neo4j URI
-driver = GraphDatabase.driver(uri, auth=("neo4j", "password"))  # Update with your credentials
-
-
+# Used to get training data
 def fetch_triples():
     query = """
   MATCH (rev:Review)-[:indicates_perceived_cleaning_quality]->(ca:Quality_Indication)
@@ -28,6 +21,8 @@ def fetch_triples():
         result = session.run(query)
         return [(record["Review_Text"], "indicates_perceived_cleaning_quality", record["Quality_Indication"]) for
                 record in result]
+
+# Used to get reviews for which relations should be derived
 def fetch_reviews_without_quality_connection():
     pre_predictions = []
 
@@ -55,7 +50,7 @@ def fetch_reviews_without_quality_connection():
 
     return pre_predictions
 
-
+# Helper to get all unique quality indications from the raw data
 def fetch_unique_quality_types():
     query = """
     MATCH (n:Quality_Indication)
@@ -65,38 +60,11 @@ def fetch_unique_quality_types():
         result = session.run(query)
         return [record["Quality_Indication"] for record in result]
 
-
+# Predictor
 def process_reviews_and_predict(model):
-    # Fetch reviews without quality connections
-    reviews_wo_relation = fetch_reviews_without_quality_connection()
-    print("Reviews without relation:", reviews_wo_relation)
-
-    # Create a DataFrame from the reviews
-    df = pd.DataFrame(reviews_wo_relation, columns=['Review_Text'])
-    df['relationship'] = 'indicates_perceived_cleaning_quality'
 
     # Fetch unique quality types (relations)
     relations = fetch_unique_quality_types()
-
-    print("DataFrame of reviews:", df)
-
-    # Generate all combinations of Review_Text, relationship, and relations
-    combinations = list(product(df['Review_Text'], relations))
-
-    # Convert combinations to a DataFrame
-    df_combinations = pd.DataFrame(combinations, columns=['head', 'tail'])
-    df_combinations.insert(1, 'relation', 'indicates_perceived_cleaning_quality')
-
-    # Create a TriplesFactory from the labeled triples
-    pred_dataset = TriplesFactory.from_labeled_triples(
-        triples=df_combinations[['head', 'relation', 'tail']].values,
-        create_inverse_triples=False  # Set according to your needs
-    )
-
-    # Ensure all entities and relations are mapped correctly
-
-    print("Max index in input tensor:", torch.max(pred_dataset.mapped_triples))
-    print("Min index in input tensor:", torch.min(pred_dataset.mapped_triples))
 
     # Predict triples using the model
     pack = predict_all(model=model) #, triples=pred_dataset.mapped_triples)
@@ -105,44 +73,53 @@ def process_reviews_and_predict(model):
     pred_annotated = pred.add_membership_columns(training=result.training)
     t = pred_annotated.df
     t.to_csv("Test.csv")
-    ad = pred_annotated.df
+    judged_triples = pred_annotated.df
 
-    return pack
+    # Filter DataFrame based on conditions
+    filtered_df = judged_triples[
+        (judged_triples['in_training'] == False) &
+        (judged_triples['tail_label'].isin(relations))
+        ]
+
+    # Get row with highest score for each head_label
+    result_df = filtered_df.loc[filtered_df.groupby('head_label')['score'].idxmax()]
+
+    return result_df[["head_label","relation_label","tail_label","score"]]
 
 if __name__ == '__main__':
-
-
     triple = fetch_triples()
     df = pd.DataFrame(triple, columns=['Review_Text', 'indicates_perceived_cleaning_quality', 'Quality_Indication'])
 
     # Assuming your dataframe has columns 'subject', 'predicate', 'object'
-    triples_factory = TriplesFactory.from_labeled_triples(
-        triples=df[['Review_Text', 'indicates_perceived_cleaning_quality', 'Quality_Indication']].values,
-    )
+    from sklearn.model_selection import train_test_split
 
-    training = triples_factory
-    validation = triples_factory
-    testing = triples_factory
+    # Split the data into training and testing sets
+    train_triples, test_triples = train_test_split(
+        df[['Review_Text', 'indicates_perceived_cleaning_quality', 'Quality_Indication']].values, test_size=0.2)
 
-    d = training
-    id_to_entity = {v: k for k, v in d.entity_to_id.items()}
-    id_to_relation = {v: k for k, v in d.relation_to_id.items()}
+    # Further split the training data into training and validation sets
+    train_triples, val_triples = train_test_split(train_triples, test_size=0.25)  # 0.25 x 0.8 = 0.2
 
-    
-    
+    # Create TriplesFactory instances for each set
+    training_factory = TriplesFactory.from_labeled_triples(triples=train_triples)
+    validation_factory = TriplesFactory.from_labeled_triples(triples=val_triples)
+    testing_factory = TriplesFactory.from_labeled_triples(triples=test_triples)
+
+
     result = pipeline(
         model='TransE',
         loss="softplus",
-        training=training,
-        testing=testing,
-        validation=validation,
-        model_kwargs=dict(embedding_dim=3),  # Increase the embedding dimension
+        training=training_factory,
+        testing=testing_factory,
+        validation=validation_factory,
+        model_kwargs=dict(embedding_dim=3),
         optimizer_kwargs=dict(lr=0.1),  # Adjust the learning rate
-        training_kwargs=dict(num_epochs=1, use_tqdm_batch=False),  # TODO: Increase the number of epochs
+        training_kwargs=dict(num_epochs=100, use_tqdm_batch=False),
     )
 
     # The trained model is stored in the pipeline result
     model = result.model
 
-    pack = process_reviews_and_predict(model=result.model)
+    df_pack = process_reviews_and_predict(model=result.model)
+    print(df_pack)
 
