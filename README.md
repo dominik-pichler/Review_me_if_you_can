@@ -143,7 +143,7 @@ In addition and out of curiosity (in Vadalog/Datalog), a **cozoDB** has also bee
 One very important factor for customer satisfaction in this industry is the quality of the appartement cleanings. With increasing numbers of properties under management, assessing this quality can become a very time-consuming and inefficient process.
 So the idea here is to offer the business owners a application that helps to assess the quality of the appartement cleanings.
 As this is a very specific use case, a general (not fine-tuned and industry specific) model like BERT is assumed to be only of limited help.
-Therefore, a train-dataset (50% of the entire dataset) consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *indicates_perceived_cleaning_quality* relationship from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the logic for the relationship connection should be the following:
+Therefore, a  very small train-dataset (due to the time constraints) consisting of manually labels that indicate whether a review is concerned with cleaning issues, has been created and used to learn the *indicates_perceived_cleaning_quality* relationship from the original ontology with the help of [TransE](https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf) were the logic for the relationship connection should be the following:
 <br>
 
 $$
@@ -165,7 +165,15 @@ Hence, the goal is to solve the following:
 </div>
 <br>
 
-TransE has been selected as suitable model and trained/learned the following way:
+To solve this problem, I decided to use KG Embeddings. Even though I was only (timewise) able to test a single algorithm
+(TransE), the Code is oriented on  the GoF's Strategy, allowing fast implementation of other Embedding algorithms inherently available in the *PyKEEN* library
+such as *TransF*, *PairRE*, *QuatE* and many more ...
+
+
+
+
+
+For now *TransE* has been selected as suitable model and trained/learned the following way:
 <br>
 <div style="width: 100%; display: flex; justify-content: center;">
     <img src="drawings/img.png" alt="TransE Learning" style="width: 90%;">
@@ -186,6 +194,8 @@ TransE has been selected as suitable model and trained/learned the following way
 The implementation can be found in `src/Embeddings_Handler.py`.
 
 ####  Embeddings Results
+On the very small test-set the Model yielded the following proposed connections.
+As one can see, the small training-set does not produce very sophisticated results, but at offers the framework for large-scale training.
 
 | head_label                                                                                                                                | relation_label                        | tail_label             | score     |
 |-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|------------------------|-----------|
