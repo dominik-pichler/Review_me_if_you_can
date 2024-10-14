@@ -379,7 +379,9 @@ The thereby built dashboard can be found under `src/dashboards/monitoring_dashbo
 
 
 ## 5.2 Reflections:  
-### 5.2.1 Other Applications of Knowledge Graphs:
+
+
+## 5.3 Other Applications of (Financial) Knowledge Graphs:
 Due to my work as Lead ML Engineer at the *Austrian Federal Ministry of Finance* I came across many interesting and helpful Financial KG Applications, mainly in the area of fraud detection and prevention.
 Here, a typical case of tax fraud/theft is the so called *Value Added Tax Carousel*, further described (here)[https://www.billit.eu/en-int/resources/blog/what-is-a-vat-carousel/].
 Due to the nature of this kind of fraud, it is very important to identify potential fraudulent activities before they reach their full scale. As, in order to "successfully" steal the VAT, those fraudulent companies have to be organised in large network-structures of 
