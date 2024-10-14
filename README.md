@@ -187,12 +187,11 @@ For now *TransE* has been selected as suitable model and trained/learned the fol
 </div>
 <br>
 
-
 The implementation can be found in `src/Embeddings_Handler.py`.
 
 ### 4.1.3  Embeddings Results
 On the very small test-set the Model yielded the following proposed connections.
-As one can see, the small training-set does not produce very sophisticated results, but at offers the framework for large-scale training.
+While the small training-set does not produce very sophisticated results,the here created framework offers a scalable solution that can be easily utilized for larger training-/testsets and predictions.
 
 | Review_Text                                                                                                                             | Edge                                 | Quality_Indication     | score     |
 |-----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|------------------------|-----------|
@@ -237,6 +236,7 @@ This script can be found in `src/GNN_Handler.py`.
  **PyTorch Geometric** was chosen over other Frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
 
 ### 4.2.3 GNN Results
+Unfortunate, due to time constraints, I was not able to finish this part (for now).
 
 ## 4.3 Logic Based Reasoning on the KG
 After testing the effectiveness of the TransE Embeddings, logical queries have been developed and executed to answer the analytics questions proposed in the introduction:
@@ -350,6 +350,16 @@ running
 ```
 python streamlit run Logic_Analysis_Dashboard.py
 ```
+### 4.3.8 Thoughts on Scaleable Reasoning
+While those queries are very fest at small scales like those present in this project, this does generally not hold true in large scale information retrieval systems (build around KGs).
+As the amount of data, and thereby the size of the Knowledge Graphs grow, this could quickly lead to highly expensive computations and painfully long execution times (or maybe even failing queries if the computational system at hand is no longer able to provide the required ressources).
+Hence, many researches have worked on building solutions that that scale very well with increasing KG/data size.
+Thereby, generally speaking, researchers focused on two big areas:
+1) The System itself, including hardware utilization,distributed computation, efficient data storages and computation on the low level.  In this project, I have used fully dockerized solutions that can be easily be deployed to highly optimized, (distributed) systems like AWS. This allows for high scaling. In addition I used Neo4J which utilizes in-memory graph projections and paralleled graph algorithms and thereby lets me run queries very fast.
+2) The logical queries, through the introduction of highly scaleable solutions like *Vadalog*, *BOOM (Berkley Orders Of Magnitude)* or *LogicBlox*.
+
+For now, the system runs in reasonable time, but in case of significant Graph-growth, combining the solutions mentioned above will provide a suitable solution.
+
 
 
 
@@ -368,11 +378,11 @@ I chose *Streamlit* mainly due to its ease of use, its excellence when it comes 
 The thereby built dashboard can be found under `src/dashboards/monitoring_dashboard.py`
 
 
-
-
-
-## 5.2 Reflections: 
-
+## 5.2 Reflections:  
+### 5.2.1 Other Applications of Knowledge Graphs:
+Due to my work as Lead ML Engineer at the *Austrian Federal Ministry of Finance* I came across many interesting and helpful Financial KG Applications, mainly in the area of fraud detection and prevention.
+Here, a typical case of tax fraud/theft is the so called *Value Added Tax Carousel*, further described (here)[https://www.billit.eu/en-int/resources/blog/what-is-a-vat-carousel/].
+Due to the nature of this kind of fraud, it is very important to identify potential fraudulent activities before they reach their full scale. As, in order to "successfully" steal the VAT, those fraudulent companies have to be organised in large network-structures of 
 
 
 
