@@ -331,26 +331,18 @@ I identified this via:
      ORDER BY bookingsWithDisgust DESC;
 ```
 
-
-
-### 4.3.4 I could add a tag of "High Performers" and "Low Performers"
-
-### 4.3.5 I could add tags for the appartments: Problematic/Unproblementic appartments
-
-### 4.3.6 Evolvment of the Knowledge Graph
-- Does it update/correct the KG? 
-
-### 4.3.7 Context and Limitations
-- Scaling? 
-- how to make it scaleable?
 - 
-### 4.3.7 Results/Summary of Logic-based Representation
+### 4.3.4 Results/Summary of Logic-based Representation
 The results of 4.2.1 - 4.2.3 can be viewed in a streamlit application that can be started via navigating into `src` and and 
 running 
 ```
 python streamlit run Logic_Analysis_Dashboard.py
 ```
-### 4.3.8 Thoughts on Scaleable Reasoning
+
+**Additional Thoughts:** 
+While the Knowledge Graph is currently not being updated based on the results of the logic based reasoning, in the future, this might be a great extention. For example Nodes for high performing appartements or cleaning personal could be introduced to identify (or at least reason about) factors that contribute to this high performance.
+
+### 4.3.5 Thoughts on Scaleable Reasoning
 While those queries are very fest at small scales like those present in this project, this does generally not hold true in large scale information retrieval systems (build around KGs).
 As the amount of data, and thereby the size of the Knowledge Graphs grow, this could quickly lead to highly expensive computations and painfully long execution times (or maybe even failing queries if the computational system at hand is no longer able to provide the required ressources).
 Hence, many researches have worked on building solutions that that scale very well with increasing KG/data size.
@@ -363,34 +355,37 @@ For now, the system runs in reasonable time, but in case of significant Graph-gr
 
 
 
-
-
 # 5 Results: 
 
-
-
-
-
 ## 5.1 Presentation Layer: 
-In order to present the determined results, I decided to use *Streamlit* to create a small dashboard, that can then be used 
+In order to present some of the determined results, I decided to use *Streamlit* to create a small dashboard, that can then be used 
 in a real life application as **customer satisfaction and cleaning quality monitor**
 I chose *Streamlit* mainly due to its ease of use, its excellence when it comes to rapid prototyping that still comes with very good user experience that can be designed in a typical pythonic way.
 The thereby built dashboard can be found under `src/dashboards/monitoring_dashboard.py`
 
-
 ## 5.2 Reflections:  
+The application designed above, displays the versatility of Knowledge Graphs and the vastness of possibility of interaction or even joint application with "classic" ML.
+For example the in **4.1.3** derived attributes can be used for further (classic) ML modelling or logic based reasining. 
+Hence, this application displays a highly cooperative setting for all kinds of different ML-/Logic-based Reasoning & Learning, where the outputs of each model can be further processed with other models.
+
+In the bigger picture, classic ML based Knowledge  and Logic-based knowledge can interact and thereby form solutions that perform way better then each individual approach on it's own.
+One prominent example is are *graph-based Retrieval-Augmented Generation (RAG) systems* that use Knowledge Graphs in order to  improve the performance of
+(large) language models and information retrieval systems. Therefore, less trustworthy language systems gain trustworthiness by a reduced danger of hallucination due to the G-RAG systems.
 
 
-## 5.3 Other Applications of (Financial) Knowledge Graphs:
-Due to my work as Lead ML Engineer at the *Austrian Federal Ministry of Finance* I came across many interesting and helpful Financial KG Applications, mainly in the area of fraud detection and prevention.
-Here, a typical case of tax fraud/theft is the so called *Value Added Tax Carousel*, further described (here)[https://www.billit.eu/en-int/resources/blog/what-is-a-vat-carousel/].
-Due to the nature of this kind of fraud, it is very important to identify potential fraudulent activities before they reach their full scale. As, in order to "successfully" steal the VAT, those fraudulent companies have to be organised in large network-structures of 
+## 5.2.1 Other Applications of (Financial) Knowledge Graphs:
+Due to my work as Lead ML Engineer at the *Austrian Federal Ministry of Finance* I came across many interesting and helpful *Financial KG Applications*, mainly in the area of fraud detection and prevention.
+Here, a typical case of tax fraud/theft is the so called (*Value Added Tax Carousel*)[https://www.billit.eu/en-int/resources/blog/what-is-a-vat-carousel/].
+Due to the nature of this kind of fraud, it is very important to identify potential fraudulent activities before they reach their full scale. As, in order to "successfully" steal the VAT, those fraudulent companies 
+have to be organised in large network-structures. Out of curiosity, I started a different project that is concerned with exactly those special 
+geometric network structures for fraud detection. The up and coming project can be found here: (Don't steal my taxes)[https://github.com/dominik-pichler/Dont_steal_my_taxes].
 
 
 
 
 
-# PS: How to use: 
+
+# How to use: 
 1. Start the Neo4j database via: 
 ```shell
 docker-compose up -d
@@ -400,18 +395,11 @@ docker-compose up -d
 3. Fill the Neo4j database with the (demo) data
    In case you want to work with the demo data, just run the `populate_KG_with_demo_data` function in `src/KG_Building_Handler.py`.
 
-et voilà, visit http://localhost:7474/browser/ for the Neo4j Database and `TDB` for the *Streamlit Dashboard*.
-Enjoy the show
+et voilà, visit http://localhost:7474/browser/ for the Neo4j Database.
+If you want to see the visual output of the Logic-based-reasoning, run `streamlit run Central_dashboard.py`for the *Streamlit Dashboard*.
+Enjoy the show.
 
 
-### How to use Logic-based Reasoning:
-Logic-bases reasoning  as described below, can be applied to the KG by running the `run_logic_based_reasoning()` function in `src/perform_analysis.py`.
-The results will be presented in a dedicated streamlit dashboard that can started by running `streamlit run src/dashboards/LBR_dashboard.py`
-
-
-### How to use Graph Neural Networks
-Deep neural network reasoning  as described below, can be applied to the KG by running the `run_GNN_reasoning()` function in `src/perform_analysis.py`.
-The results will be presented in a dedicated streamlit dashboard that can started by running `streamlit run src/dashboards/GNN_dashboard.py`
-
-
- https://distill.pub/2021/gnn-intro/
+Further functionality can be found in the `src` folder and can be easily extended/modified to each and everyones needs.
+Every script  necessary to replicate the productive ETL System in AWS can be found in the `ETL` directory. Due to time constraints,
+I had to refrain from writing detailed description for this package. Especially as it can be assumed that the setup is not too complicated.
