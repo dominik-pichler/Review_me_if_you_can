@@ -5,11 +5,12 @@
 # 1. Introduction
 ## 1.1 Scenario
 Short-Term Renting business (STR) is hard, but without the right monitoring tools for customer satisfaction, it is even harder (then it has to be). 
-This Project utilizes modern Knowledge-Graph-based Approaches to assist hotels and short-term rental businesses in **identifying key issues** regarding their cleaning services and customer satisfactions. 
-In particular, it is aiming at identifying if certain appartements or cleaning personals form clusters/sources of extrem good or bad customer experiences.
+This Project utilizes modern Knowledge-Graph-based Approaches to assist hotels and STR-businesses in **identifying key issues** regarding their cleaning services and customer satisfactions. 
+In particular, it aims to identify whether certain apartments or cleaning staff form clusters or sources of exceptionally good or bad customer experiences.
+
 
 ### 1.1.1 Proposed Analytics and Solutions
-For this reason, this project provides a presentation layer (via a `streamlit` application) that displays the following information to the user: 
+For this reason, this project aims to provide a presentation layer (via a `streamlit` application) that displays the following information to the user: 
 - A list of cleaning personal that is linked to the best/worst customer experiences. 
 - A list of apartments that are linked to the best/worst customer experiences.
 - An analysis to identify if certain cleaning people or appartements became a central node in a node of bad customer experiences or form a cluster utilizing utilizing *Deep Modularity Networks*.
@@ -20,25 +21,25 @@ Eventually, this insight could then be used to infer insights for improvements i
 ## 1.2 Background
 In the hotel/STR business, a common SaaS Stack is the combination of [Kross Booking](https://www.krossbooking.com/en) that provides PMS + Channel Manager + Booking Engine in one solution, in combination with [TimeTac](https://www.timetac.com/en/) that allows 
 for smart time tracking of all internal (cleaning) processes. 
-While the above is great for managing daily operations, the amount of data insight that can be extracted out of the box is pretty limited and. 
-Hence, business owners of certain scales that use the SaaS stack described above are left with high amounts of manual analytical effort with still limited insights   
+While the above is great for managing daily operations, the amount of data insight that can be extracted out of the box is pretty limited and 
+Hence, business owners of certain scales that use the SaaS stack described above are left with high amounts of manual analytical effort with still limited insights.   
 Therefore, this project tries to reduce the amount of manual effort needed, as well as to increase the quality of insight possible.
 
 
 
 # 2. Data Source
-This data that has been used to construct the KG has been  derived (as depicted later on in the architecture section) from two APIs:
+In order to achieve the previously defined objectives, the following data has been used to construct a Knowledgegraph (based on an ontology, depicted later on in the architecture section) from two APIs:
 
 ## 2.1 Raw Data
 ### 2.1.1 Kross Booking
-A plattform that works as booking engine for the management of hotels/appartements. In this case, it is used to manage all bookings (and everything related) across all appartements/hotels.
+As mentioned before, this is a plattform that works as booking engine for the management of hotels/appartements. In this context, it is used to oversee (and store) all bookings and related activities across all properties.
 The stored data about the bookings can be fetched via a REST-API following the OpenAPI Standard.
 ### 2.1.2 TimeTac
-A plattform that allows to track process times of (cleaning) people. In this case, it is used to track and access data about who has cleaned which apartment, when and for how long.
+A plattform that allows to track process times of (cleaning) people. In this instance, it is utilized to track and access data regarding who cleaned each apartment, along with the timing and duration of the cleaning.
 The stored data about cleaning durations can be fetched via a REST-API following the OpenAPI Standard
 
 ## 2.2 Additionally derived Data
-   In addition, the collected reviews (via Kross Booking) are automatically translated and pre-evaluated with a sentiment model.   
+   In addition, the collected reviews (via *Kross Booking*) are automatically translated and pre-evaluated with a sentiment model.   
 ### 2.2.1 Translation
    As the customers of the appartements can (and have been) writing reviews in more than 150 different languages, I had to start out by translating them to a single language.
    For this purpose, I used the `src/review_process_utils/review_translor.py` script that utilizes the `googleTrans` package to translate all reviews (if possible) to english.
@@ -60,11 +61,11 @@ The two additional operations, the translation and sentiment analysis then yield
 | Sentiment_Score        | FLOAT     |
 | Cleaning_Quality       | INT       |
 
-For simplification purposes this data is also stored in the AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB or AWS Dynamo DB could be made, but
+To simplify data management, this information is also stored in AWS RDS. Of course arguments for storing this data in a NoSQL Table like MongoDB or AWS Dynamo DB can be made, but
 due to the limited scope of this project I have decided to keep the overhead low and not setup another DB.
 
 
-## 2.3 Data for the KG-Generation
+## 2.3 Data for the Knowledge-Graph-Generation
 Finally, the resulting data has been stored in the following ABT `ABT_BASE_TABLE_KG_GENERATION` that will be used for building the Knowledge Graph: 
 
 | Column Name            | Data Type  | Source        |
@@ -80,9 +81,8 @@ Finally, the resulting data has been stored in the following ABT `ABT_BASE_TABLE
 
 
 **Side Notes:**
-- For this demonstration purpose, the production data has been used and been anonymized using `src/data_anonimizer.py` and stored in `data\demo_data.csv`
-- Due to my limited local computational resources, I have only selected a small sample from the original data. Nonetheless, this project has been designed in a scalable way and the entirety of the data could be easily processed with the help of more computational resources easily with a simple deployment to AWS. 
-
+- For this demonstration purpose, the production data has been used and been anonymized using `src/data_anonimizer.py` and stored in `data/demo_data.csv`
+- Given my limited local computational resources, I have opted to work with a small sample of the original data. However, the project is designed to be scalable, allowing for the entire dataset to be efficiently processed by deploying it to AWS with additional computational resources.
 
 # 3. KGMS and KG Construction 
 As mentioned before, the application utilizes data that has been fetched from *KROSS Booking* and *TimeTac* via their internal APIs is currently stored in a AWS RDS in multiple tables using the architecture displayed below:
@@ -331,18 +331,17 @@ I identified this via:
      ORDER BY bookingsWithDisgust DESC;
 ```
 
-- 
 ### 4.3.4 Results/Summary of Logic-based Representation
 The results of 4.2.1 - 4.2.3 can be viewed in a streamlit application that can be started via navigating into `src` and and 
 running 
 ```
-python streamlit run Logic_Analysis_Dashboard.py
+python streamlit run Central_Dashboard.py
 ```
 
 **Additional Thoughts:** 
 While the Knowledge Graph is currently not being updated based on the results of the logic based reasoning, in the future, this might be a great extention. For example Nodes for high performing appartements or cleaning personal could be introduced to identify (or at least reason about) factors that contribute to this high performance.
 
-### 4.3.5 Thoughts on Scaleable Reasoning
+### 4.3.5 Thoughts on Scalable Reasoning
 While those queries are very fest at small scales like those present in this project, this does generally not hold true in large scale information retrieval systems (build around KGs).
 As the amount of data, and thereby the size of the Knowledge Graphs grow, this could quickly lead to highly expensive computations and painfully long execution times (or maybe even failing queries if the computational system at hand is no longer able to provide the required ressources).
 Hence, many researches have worked on building solutions that that scale very well with increasing KG/data size.
@@ -355,15 +354,15 @@ For now, the system runs in reasonable time, but in case of significant Graph-gr
 
 
 
-# 5 Results: 
+# 5 Results 
 
-## 5.1 Presentation Layer: 
+## 5.1 Presentation Layer
 In order to present some of the determined results, I decided to use *Streamlit* to create a small dashboard, that can then be used 
 in a real life application as **customer satisfaction and cleaning quality monitor**
 I chose *Streamlit* mainly due to its ease of use, its excellence when it comes to rapid prototyping that still comes with very good user experience that can be designed in a typical pythonic way.
 The thereby built dashboard can be found under `src/dashboards/monitoring_dashboard.py`
 
-## 5.2 Reflections:  
+## 5.2 Reflections 
 The application designed above, displays the versatility of Knowledge Graphs and the vastness of possibility of interaction or even joint application with "classic" ML.
 For example the in **4.1.3** derived attributes can be used for further (classic) ML modelling or logic based reasining. 
 Hence, this application displays a highly cooperative setting for all kinds of different ML-/Logic-based Reasoning & Learning, where the outputs of each model can be further processed with other models.
@@ -373,7 +372,7 @@ One prominent example is are *graph-based Retrieval-Augmented Generation (RAG) s
 (large) language models and information retrieval systems. Therefore, less trustworthy language systems gain trustworthiness by a reduced danger of hallucination due to the G-RAG systems.
 
 
-## 5.2.1 Other Applications of (Financial) Knowledge Graphs:
+## 5.2.1 Other Applications of (Financial) Knowledge Graphs
 Due to my work as Lead ML Engineer at the *Austrian Federal Ministry of Finance* I came across many interesting and helpful *Financial KG Applications*, mainly in the area of fraud detection and prevention.
 Here, a typical case of tax fraud/theft is the so called (*Value Added Tax Carousel*)[https://www.billit.eu/en-int/resources/blog/what-is-a-vat-carousel/].
 Due to the nature of this kind of fraud, it is very important to identify potential fraudulent activities before they reach their full scale. As, in order to "successfully" steal the VAT, those fraudulent companies 
@@ -385,7 +384,7 @@ geometric network structures for fraud detection. The up and coming project can 
 
 
 
-# How to use: 
+# How to use
 1. Start the Neo4j database via: 
 ```shell
 docker-compose up -d
