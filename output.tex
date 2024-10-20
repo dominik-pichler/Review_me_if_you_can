@@ -118,7 +118,15 @@
 
 \begin{figure}
 \centering
-\pandocbounded{\includesvg[keepaspectratio]{drawings/graph_fully_con.svg}}
+
+\begin{figure}[ht]
+  \centering
+  \includesvg[width=0.7\textwidth]{drawings/graph_fully_con.svg}
+  \caption{Your SVG Image}
+  \label{fig:svgimage}
+\end{figure}
+
+%%\pandocbounded{\includesvg[keepaspectratio]{drawings/graph_fully_con.svg}}
 \caption{Cleaning\_Graph}
 \end{figure}
 
@@ -226,10 +234,10 @@ Column Name & Data Type \\
 \bottomrule\noalign{}
 \endlastfoot
 Booking\_ID (PK) & INT \\
-Translated_Review\_Text & TEXT \\
-Primary_Emotion & TEXT \\
-Sentiment_Score & FLOAT \\
-Cleaning_Quality & INT \\
+Translated\_Review\_Text & TEXT \\
+Primary\_Emotion & TEXT \\
+Sentiment\_Score & FLOAT \\
+Cleaning\_Quality & INT \\
 \end{longtable}
 
 To simplify data management, this information is also stored in AWS RDS.
@@ -242,7 +250,7 @@ DB.
 Knowledge-Graph-Generation}\label{data-for-the-knowledge-graph-generation}
 
 Finally, the resulting data has been stored in the following ABT
-\texttt{ABT_BASE_TABLE_KG_GENERATION} that will be used for building
+\texttt{ABT\_BASE\_TABLE\_KG\_GENERATION} that will be used for building
 the Knowledge Graph:
 
 \begin{longtable}[]{@{}lll@{}}
@@ -252,20 +260,20 @@ Column Name & Data Type & Source \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Booking_ID (PK) & INT & KROSS \\
-Start date of stay & TIME STAMP & KROSS \\
+Booking\_ID (PK) & INT & KROSS \\
+Start\_date\_of\_stay & TIME STAMP & KROSS \\
 Appartement & STRING & KROSS \\
 Cleaner & STRING & TIMETAC \\
-Translated_Review_Text & TEXT & KROSS \\
-Primary_Emotion & TEXT & ML Model \\
-Sentiment_Score & FLOAT & ML Model \\
-Quality_Indication & INT & Manual/TransE \\
+Translated\_Review\_Text & TEXT & KROSS \\
+Primary\_Emotion & TEXT & ML Model \\
+Sentiment\_Score & FLOAT & ML Model \\
+Quality\_Indication & INT & Manual/TransE \\
 \end{longtable}
 
 \textbf{Side Notes:} - For this demonstration purpose, the production
 data has been used and been anonymized using
-\texttt{src/data_anonimizer.py} and stored in
-\texttt{data/demo_data.csv} - Given my limited local computational
+\texttt{src/data\_anonimizer.py} and stored in
+\texttt{data/demo\_data.csv} - Given my limited local computational
 resources, I have opted to work with a small sample of the original
 data. However, the project is designed to be scalable, allowing for the
 entire dataset to be efficiently processed by deploying it to AWS with
@@ -289,12 +297,12 @@ into the aforementioned ABT.
 
 In the meantime, an adapter (also running in a different \emph{AWS Lamda
 Container}), is daily fetching new review data from the ABT, sends the
-reviews to a sentiment model (\texttt{emotion_detector.py}) that
+reviews to a sentiment model (\texttt{emotion\_detector.py}) that
 returns the top sentiment scores for each review.
 
 After that, the data gets transformed into a graph-structure and then
 added to an on-premise \emph{Neo4J} Database (dockerized) via the
-following python script \texttt{src/KG_Building_Handler.py}. This
+following python script \texttt{src/KG\_Building\_Handler.py}. This
 script iterates over every row in the ABT, transforms it based on the
 Ontology below and adds it to Neo4j. In case a certain Node already
 exists (for example, an appartement has already been booked before), the
@@ -360,7 +368,7 @@ appartement cleanings. As this is a very specific use case, a general
 only of limited help. Therefore, a very small train-dataset (due to the
 time constraints) consisting of manually labels that indicate whether a
 review is concerned with cleaning issues, has been created and used to
-learn the \emph{indicates_perceived_cleaning_quality} relationship
+learn the \emph{indicates\_perceived\_cleaning\_quality} relationship
 from the original ontology with the help of
 \href{https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf}{TransE}
 were the logic for the relationship connection should be the following:

@@ -1,121 +1,3 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-\documentclass[
-]{article}
-\usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\newenvironment{Shaded}{}{}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
-\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
-\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs,array}
-\usepackage{calc} % for calculating minipage widths
-% Correct order of tables after \paragraph or \subparagraph
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
-\makeatother
-% Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
-\makesavenoteenv{longtable}
-\usepackage{graphicx}
-\makeatletter
-\newsavebox\pandoc@box
-\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
-  \sbox\pandoc@box{#1}%
-  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
-  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
-  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
-  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
-  \else\usebox{\pandoc@box}%
-  \fi%
-}
-% Set default figure placement to htbp
-\def\fps@figure{htbp}
-\makeatother
-\usepackage{svg}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\usepackage{bookmark}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-
-\author{}
-\date{}
-
-\begin{document}
-
 \begin{figure}
 \centering
 \pandocbounded{\includesvg[keepaspectratio]{drawings/graph_fully_con.svg}}
@@ -226,10 +108,10 @@ Column Name & Data Type \\
 \bottomrule\noalign{}
 \endlastfoot
 Booking\_ID (PK) & INT \\
-Translated_Review\_Text & TEXT \\
-Primary_Emotion & TEXT \\
-Sentiment_Score & FLOAT \\
-Cleaning_Quality & INT \\
+Translated\_Review\_Text & TEXT \\
+Primary\_Emotion & TEXT \\
+Sentiment\_Score & FLOAT \\
+Cleaning\_Quality & INT \\
 \end{longtable}
 
 To simplify data management, this information is also stored in AWS RDS.
@@ -242,7 +124,7 @@ DB.
 Knowledge-Graph-Generation}\label{data-for-the-knowledge-graph-generation}
 
 Finally, the resulting data has been stored in the following ABT
-\texttt{ABT_BASE_TABLE_KG_GENERATION} that will be used for building
+\texttt{ABT\_BASE\_TABLE\_KG\_GENERATION} that will be used for building
 the Knowledge Graph:
 
 \begin{longtable}[]{@{}lll@{}}
@@ -252,20 +134,20 @@ Column Name & Data Type & Source \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Booking_ID (PK) & INT & KROSS \\
-Start date of stay & TIME STAMP & KROSS \\
+Booking\_ID (PK) & INT & KROSS \\
+Start\_date\_of\_stay & TIME STAMP & KROSS \\
 Appartement & STRING & KROSS \\
 Cleaner & STRING & TIMETAC \\
-Translated_Review_Text & TEXT & KROSS \\
-Primary_Emotion & TEXT & ML Model \\
-Sentiment_Score & FLOAT & ML Model \\
-Quality_Indication & INT & Manual/TransE \\
+Translated\_Review\_Text & TEXT & KROSS \\
+Primary\_Emotion & TEXT & ML Model \\
+Sentiment\_Score & FLOAT & ML Model \\
+Quality\_Indication & INT & Manual/TransE \\
 \end{longtable}
 
 \textbf{Side Notes:} - For this demonstration purpose, the production
 data has been used and been anonymized using
-\texttt{src/data_anonimizer.py} and stored in
-\texttt{data/demo_data.csv} - Given my limited local computational
+\texttt{src/data\_anonimizer.py} and stored in
+\texttt{data/demo\_data.csv} - Given my limited local computational
 resources, I have opted to work with a small sample of the original
 data. However, the project is designed to be scalable, allowing for the
 entire dataset to be efficiently processed by deploying it to AWS with
@@ -289,12 +171,12 @@ into the aforementioned ABT.
 
 In the meantime, an adapter (also running in a different \emph{AWS Lamda
 Container}), is daily fetching new review data from the ABT, sends the
-reviews to a sentiment model (\texttt{emotion_detector.py}) that
+reviews to a sentiment model (\texttt{emotion\_detector.py}) that
 returns the top sentiment scores for each review.
 
 After that, the data gets transformed into a graph-structure and then
 added to an on-premise \emph{Neo4J} Database (dockerized) via the
-following python script \texttt{src/KG_Building_Handler.py}. This
+following python script \texttt{src/KG\_Building\_Handler.py}. This
 script iterates over every row in the ABT, transforms it based on the
 Ontology below and adds it to Neo4j. In case a certain Node already
 exists (for example, an appartement has already been booked before), the
@@ -360,7 +242,7 @@ appartement cleanings. As this is a very specific use case, a general
 only of limited help. Therefore, a very small train-dataset (due to the
 time constraints) consisting of manually labels that indicate whether a
 review is concerned with cleaning issues, has been created and used to
-learn the \emph{indicates_perceived_cleaning_quality} relationship
+learn the \emph{indicates\_perceived\_cleaning\_quality} relationship
 from the original ontology with the help of
 \href{https://proceedings.neurips.cc/paper_files/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf}{TransE}
 were the logic for the relationship connection should be the following:
@@ -542,35 +424,37 @@ experiences:}\label{list-of-cleaning-personal-that-is-linked-to-the-bestworst-cu
 
 For this purpose, I designed the following logical query:
 
-\begin{verbatim}
-    // Match cleaning personnel and their associated reviews and emotions
-    MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
-    WHERE em.text IN ['joy', 'disgust'] // Filter for relevant emotions
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    // Match cleaning personnel and their associated reviews and emotions}
+\NormalTok{    MATCH (r:Reinigungsmitarbeiter)\textless{}{-}[:CLEANED\_BY]{-}(b:Booking){-}[:HAS\_REVIEW]{-}\textgreater{}(rev:Review){-}[:HAS\_EMOTION]{-}\textgreater{}(em:Emotion)}
+\NormalTok{    WHERE em.text IN [\textquotesingle{}joy\textquotesingle{}, \textquotesingle{}disgust\textquotesingle{}] // Filter for relevant emotions}
 
-    // Aggregate emotion counts and total cleanings
-    WITH r, em.text AS emotion, count(em) AS emotionCount, count(DISTINCT b) AS totalCleanings
-   ORDER BY r.name
+\NormalTok{    // Aggregate emotion counts and total cleanings}
+\NormalTok{    WITH r, em.text AS emotion, count(em) AS emotionCount, count(DISTINCT b) AS totalCleanings}
+\NormalTok{   ORDER BY r.name}
 
-    // Calculate joy-to-disgust ratio
-    WITH r, 
-         sum(CASE WHEN emotion = 'joy' THEN emotionCount ELSE 0 END) AS joyCount,
-         sum(CASE WHEN emotion = 'disgust' THEN emotionCount ELSE 0 END) AS disgustCount,
-         totalCleanings
+\NormalTok{    // Calculate joy{-}to{-}disgust ratio}
+\NormalTok{    WITH r, }
+\NormalTok{         sum(CASE WHEN emotion = \textquotesingle{}joy\textquotesingle{} THEN emotionCount ELSE 0 END) AS joyCount,}
+\NormalTok{         sum(CASE WHEN emotion = \textquotesingle{}disgust\textquotesingle{} THEN emotionCount ELSE 0 END) AS disgustCount,}
+\NormalTok{         totalCleanings}
 
-    WITH r, 
-         joyCount, 
-         disgustCount, 
-         totalCleanings,
-         CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio
+\NormalTok{    WITH r, }
+\NormalTok{         joyCount, }
+\NormalTok{         disgustCount, }
+\NormalTok{         totalCleanings,}
+\NormalTok{         CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio}
 
-    // Order by joy-to-disgust ratio to rank performers
-    ORDER BY joyDisgustRatio DESC
+\NormalTok{    // Order by joy{-}to{-}disgust ratio to rank performers}
+\NormalTok{    ORDER BY joyDisgustRatio DESC}
 
-    // Return ranked list of performers with total cleanings
-     RETURN r.name AS cleaner, 
-            joyDisgustRatio AS ratio, 
-            totalCleanings
-\end{verbatim}
+\NormalTok{    // Return ranked list of performers with total cleanings}
+\NormalTok{     RETURN r.name AS cleaner, }
+\NormalTok{            joyDisgustRatio AS ratio, }
+\NormalTok{            totalCleanings}
+\end{Highlighting}
+\end{Shaded}
 
 \subsubsection{4.3.2 List of apartments that are linked to the
 best/worst customer
@@ -578,38 +462,40 @@ experiences.}\label{list-of-apartments-that-are-linked-to-the-bestworst-customer
 
 For this purpose, I designed the following logical query:
 
-\begin{verbatim}
-    // Match apartments and their associated reviews and emotions
-    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
-    WHERE em.text IN ['joy', 'disgust'] // Filter for relevant emotions
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    // Match apartments and their associated reviews and emotions}
+\NormalTok{    MATCH (a:Appartment)\textless{}{-}[:HAS\_BOOKED\_APPARTEMENT]{-}(b:Booking){-}[:HAS\_REVIEW]{-}\textgreater{}(rev:Review){-}[:HAS\_EMOTION]{-}\textgreater{}(em:Emotion)}
+\NormalTok{    WHERE em.text IN [\textquotesingle{}joy\textquotesingle{}, \textquotesingle{}disgust\textquotesingle{}] // Filter for relevant emotions}
 
-    // Aggregate emotion counts and total bookings 
-    WITH a, 
-         em.text           AS emotion, 
-         count(em)         AS emotionCount, 
-         count(DISTINCT b) AS totalBookings
-   ORDER BY a.name
+\NormalTok{    // Aggregate emotion counts and total bookings }
+\NormalTok{    WITH a, }
+\NormalTok{         em.text           AS emotion, }
+\NormalTok{         count(em)         AS emotionCount, }
+\NormalTok{         count(DISTINCT b) AS totalBookings}
+\NormalTok{   ORDER BY a.name}
 
-   // Calculate joy-to-disgust ratio
-   WITH a, 
-        sum(CASE WHEN emotion = 'joy' THEN emotionCount ELSE 0 END) AS joyCount,
-        sum(CASE WHEN emotion = 'disgust' THEN emotionCount ELSE 0 END) AS disgustCount,
-        totalBookings
+\NormalTok{   // Calculate joy{-}to{-}disgust ratio}
+\NormalTok{   WITH a, }
+\NormalTok{        sum(CASE WHEN emotion = \textquotesingle{}joy\textquotesingle{} THEN emotionCount ELSE 0 END) AS joyCount,}
+\NormalTok{        sum(CASE WHEN emotion = \textquotesingle{}disgust\textquotesingle{} THEN emotionCount ELSE 0 END) AS disgustCount,}
+\NormalTok{        totalBookings}
 
-   WITH a, 
-        joyCount,
-        disgustCount, 
-        totalBookings,
-        CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio
+\NormalTok{   WITH a, }
+\NormalTok{        joyCount,}
+\NormalTok{        disgustCount, }
+\NormalTok{        totalBookings,}
+\NormalTok{        CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio}
 
-   // Order by joy-to-disgust ratio to rank apartments
-    ORDER BY joyDisgustRatio DESC
+\NormalTok{   // Order by joy{-}to{-}disgust ratio to rank apartments}
+\NormalTok{    ORDER BY joyDisgustRatio DESC}
 
-   // Return ranked list of apartments with total bookings
-   RETURN a.name          AS apartment, 
-          joyDisgustRatio AS ratio, 
-          totalBookings
-\end{verbatim}
+\NormalTok{   // Return ranked list of apartments with total bookings}
+\NormalTok{   RETURN a.name          AS apartment, }
+\NormalTok{          joyDisgustRatio AS ratio, }
+\NormalTok{          totalBookings}
+\end{Highlighting}
+\end{Shaded}
 
 \subsubsection{4.3.3 A analysis to identify if certain cleaning people
 or appartements became a central node in a node of dissatisfaction or
@@ -618,21 +504,25 @@ cluster.}\label{a-analysis-to-identify-if-certain-cleaning-people-or-appartement
 
 I identified this via:
 
-\begin{verbatim}
-    // Find clusters of dissatisfaction based on negative emotions
-    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
-    WHERE em.text = 'disgust'
-   RETURN a.name AS apartment, count(DISTINCT b) AS bookingsWithDisgust
-    ORDER BY bookingsWithDisgust DESC;
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    // Find clusters of dissatisfaction based on negative emotions}
+\NormalTok{    MATCH (a:Appartment)\textless{}{-}[:HAS\_BOOKED\_APPARTEMENT]{-}(b:Booking){-}[:HAS\_REVIEW]{-}\textgreater{}(rev:Review){-}[:HAS\_EMOTION]{-}\textgreater{}(em:Emotion)}
+\NormalTok{    WHERE em.text = \textquotesingle{}disgust\textquotesingle{}}
+\NormalTok{   RETURN a.name AS apartment, count(DISTINCT b) AS bookingsWithDisgust}
+\NormalTok{    ORDER BY bookingsWithDisgust DESC;}
+\end{Highlighting}
+\end{Shaded}
 
-\begin{verbatim}
-     // Similarly for cleaning personnel
-     MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
-     WHERE em.text = 'disgust'
-    RETURN r.name AS cleaner, count(DISTINCT b) AS bookingsWithDisgust
-     ORDER BY bookingsWithDisgust DESC;
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{     // Similarly for cleaning personnel}
+\NormalTok{     MATCH (r:Reinigungsmitarbeiter)\textless{}{-}[:CLEANED\_BY]{-}(b:Booking){-}[:HAS\_REVIEW]{-}\textgreater{}(rev:Review){-}[:HAS\_EMOTION]{-}\textgreater{}(em:Emotion)}
+\NormalTok{     WHERE em.text = \textquotesingle{}disgust\textquotesingle{}}
+\NormalTok{    RETURN r.name AS cleaner, count(DISTINCT b) AS bookingsWithDisgust}
+\NormalTok{     ORDER BY bookingsWithDisgust DESC;}
+\end{Highlighting}
+\end{Shaded}
 
 \subsubsection{4.3.4 Results/Summary of Logic-based
 Representation}\label{resultssummary-of-logic-based-representation}
@@ -769,5 +659,3 @@ necessary to replicate the productive ETL System in AWS can be found in
 the \texttt{ETL} directory. Due to time constraints, I had to refrain
 from writing detailed description for this package. Especially as it can
 be assumed that the setup is not too complicated.
-
-\end{document}
