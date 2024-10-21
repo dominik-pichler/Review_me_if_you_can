@@ -6,6 +6,7 @@
 \usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
+\usepackage[inkscapeversion=1]{svg}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
@@ -100,7 +101,6 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
-\usepackage{svg}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -116,19 +116,9 @@
 
 \begin{document}
 
-\begin{figure}
-\centering
 
-\begin{figure}[ht]
-  \centering
-  \includesvg[width=0.7\textwidth]{drawings/graph_fully_con.svg}
-  \caption{Your SVG Image}
-  \label{fig:svgimage}
-\end{figure}
+\includegraphics[scale=0.65]{testdilbert.png}
 
-%%\pandocbounded{\includesvg[keepaspectratio]{drawings/graph_fully_con.svg}}
-\caption{Cleaning\_Graph}
-\end{figure}
 
 \section{1. Introduction}\label{introduction}
 
@@ -287,6 +277,8 @@ currently stored in a AWS RDS in multiple tables using the architecture
 displayed below:
 \pandocbounded{\includesvg[keepaspectratio]{drawings/Application_Architecture.svg}}
 
+\pagebreak
+
 In the beginning the data is being fetched from the two API's utilizing
 a python script that runs in a \emph{AWS Lamda Container} that is being
 executed once per day (at midnight). Once the data has been fetched
@@ -313,7 +305,10 @@ Through the process outlined above, the Knowledge Graph (KG) is updated
 daily with the latest available data, allowing it to continuously
 evolve. The resulting KG comprises a collection of nodes and edges. Each
 row in the ABT corresponds to one such instance displayed below.
+
+
 \pandocbounded{\includesvg[keepaspectratio]{drawings/KG_Architecture.svg}}
+
 
 \textbf{Side Notes:} - In the initial creation phase, edges leading to
 the \emph{Quality Indication} are available only for a specific subgroup
@@ -552,7 +547,8 @@ For this purpose, I designed the following logical query:
 
 \begin{verbatim}
     // Match cleaning personnel and their associated reviews and emotions
-    MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+    MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)
+    -[:HAS_EMOTION]->(em:Emotion)
     WHERE em.text IN ['joy', 'disgust'] // Filter for relevant emotions
 
     // Aggregate emotion counts and total cleanings
@@ -569,7 +565,8 @@ For this purpose, I designed the following logical query:
          joyCount, 
          disgustCount, 
          totalCleanings,
-         CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio
+         CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END 
+         AS joyDisgustRatio
 
     // Order by joy-to-disgust ratio to rank performers
     ORDER BY joyDisgustRatio DESC
@@ -588,7 +585,8 @@ For this purpose, I designed the following logical query:
 
 \begin{verbatim}
     // Match apartments and their associated reviews and emotions
-    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)
+    -[:HAS_EMOTION]->(em:Emotion)
     WHERE em.text IN ['joy', 'disgust'] // Filter for relevant emotions
 
     // Aggregate emotion counts and total bookings 
@@ -608,7 +606,8 @@ For this purpose, I designed the following logical query:
         joyCount,
         disgustCount, 
         totalBookings,
-        CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END AS joyDisgustRatio
+        CASE WHEN disgustCount = 0 THEN joyCount ELSE joyCount * 1.0 / disgustCount END 
+        AS joyDisgustRatio
 
    // Order by joy-to-disgust ratio to rank apartments
     ORDER BY joyDisgustRatio DESC
@@ -628,7 +627,8 @@ I identified this via:
 
 \begin{verbatim}
     // Find clusters of dissatisfaction based on negative emotions
-    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+    MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->
+    (rev:Review)-[:HAS_EMOTION]->(em:Emotion)
     WHERE em.text = 'disgust'
    RETURN a.name AS apartment, count(DISTINCT b) AS bookingsWithDisgust
     ORDER BY bookingsWithDisgust DESC;
@@ -636,7 +636,8 @@ I identified this via:
 
 \begin{verbatim}
      // Similarly for cleaning personnel
-     MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)-[:HAS_EMOTION]->(em:Emotion)
+     MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->
+     (rev:Review)-[:HAS_EMOTION]->(em:Emotion)
      WHERE em.text = 'disgust'
     RETURN r.name AS cleaner, count(DISTINCT b) AS bookingsWithDisgust
      ORDER BY bookingsWithDisgust DESC;
@@ -710,6 +711,8 @@ logic based reasining. Hence, this application displays a highly
 cooperative setting for all kinds of different ML-/Logic-based Reasoning
 \& Learning, where the outputs of each model can be further processed
 with other models.
+
+
 
 In the bigger picture, classic ML based Knowledge and Logic-based
 knowledge can interact and thereby form solutions that perform way
