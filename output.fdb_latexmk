@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1729495169.80002 "/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex" "output.pdf" "output" 1729495171.12889 2
-  "/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex" 1729495167.79466 33923 a7ab51db5d5faa577f8c1b69e93736f0 ""
+["pdflatex"] 1729495805.90852 "/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex" "output.pdf" "output" 1729495808.86173 2
+  "/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex" 1729495802.29821 34000 1551a683345948363505ad22b9ff24c3 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -156,11 +156,11 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1729420494.13132 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1729420484 8221430 61890c29d6f98fbf3c5fb2fdcfd9e1a1 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "drawings/Application_Architecture.svg" 1729416922.8243 26542 29878125339f93c4338e5f918cd5977e ""
+  "drawings/Application_Architecture.png" 1729495789.63213 63181 01eecc02a845164ef5d99a212e626a70 ""
   "drawings/KG_Architecture.svg" 1728072792.46234 71296 b4f9f04ee8eb42abf67145b26435d682 ""
-  "output.aux" 1729495170.95928 21243 283b9927c612511419fc110c4d062ed1 "pdflatex"
-  "output.tex" 1729495167.79466 33923 a7ab51db5d5faa577f8c1b69e93736f0 ""
-  "testdilbert.png" 1729495128.44603 12822 d2badce315b49feb7a3b7b6cb2361def ""
+  "drawings/graph_fully_con.png" 1729495573.45192 1614183 bbd6357f2c738d6106d4280c9bb497d0 ""
+  "output.aux" 1729495808.69463 21243 44d8b4c274071a52626a4aba838dc957 "pdflatex"
+  "output.tex" 1729495802.29821 34000 1551a683345948363505ad22b9ff24c3 ""
   (generated)
   "output.aux"
   "output.log"

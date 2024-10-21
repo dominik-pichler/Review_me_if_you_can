@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.20)  21 OCT 2024 09:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.20)  21 OCT 2024 09:30
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -598,211 +598,131 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
 Package hyperref Info: Link coloring OFF on input line 117.
-<testdilbert.png, id=7, 903.375pt x 434.62375pt>
-File: testdilbert.png Graphic file (type png)
-<use testdilbert.png>
-Package pdftex.def Info: testdilbert.png  used on input line 120.
-(pdftex.def)             Requested size: 587.1868pt x 282.50208pt.
-
-Overfull \hbox (117.43178pt too wide) in paragraph at lines 120--121
-[][] 
- []
-
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 140.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/lm/t1lmtt.fd
+<drawings/graph_fully_con.png, id=7, 3723.9125pt x 3581.38pt>
+File: drawings/graph_fully_con.png Graphic file (type png)
+<use drawings/graph_fully_con.png>
+Package pdftex.def Info: drawings/graph_fully_con.png  used on input line 121.
+(pdftex.def)             Requested size: 328.82707pt x 316.18979pt.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 142.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [1
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc} <./testdilbert.png>]
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc} <./drawings/graph_fully_con.png>]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 1 on input line 231.
+(longtable)                in table 1 on input line 233.
 
 [2]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 2 on input line 261.
+(longtable)                in table 2 on input line 263.
 
-Package svg Info: Calling Inkscape on input line 278.
-runsystem(inkscape "drawings/Application_Architecture.svg" -D --export-latex --export-filename="Application_Architecture_svg-tex.pdf")...executed.
-
-
-Package svg Warning: The export with Inkscape failed for file
-(svg)                `drawings/Application_Architecture.svg'
-(svg)                Troubleshooting: Please check in the log file how
-(svg)                the invocation of Inkscape took place and try to
-(svg)                execute it yourself in the terminal on input line 278.
-
-
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:278: Package svg Error: File `Application_Architecture_svg-tex.pdf' is missing.
-
-See the svg package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.278 ...]{drawings/Application_Architecture.svg}}
-                                                  
-Did you run the export with Inkscape? There's no file
-`./svg-inkscape/Application_Architecture_svg-tex.pdf'
-although `drawings/Application_Architecture.svg' was found.
-
-
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:278: Package svg Error: File `Application_Architecture_svg-tex.pdf_tex' is missing.
-
-See the svg package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.278 ...]{drawings/Application_Architecture.svg}}
-                                                  
-Did you run the export with Inkscape? There's no file
-`./svg-inkscape/Application_Architecture_svg-tex.pdf_tex'
-although `drawings/Application_Architecture.svg' was found.
-
-
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:278: Package graphics Error: Division by 0.
-
-See the graphics package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.278 ...]{drawings/Application_Architecture.svg}}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:278: Package graphics Error: Division by 0.
-
-See the graphics package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.278 ...]{drawings/Application_Architecture.svg}}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[3]
-Package svg Info: Calling Inkscape on input line 310.
+<drawings/Application_Architecture.png, id=39, 1205.50375pt x 613.29124pt>
+File: drawings/Application_Architecture.png Graphic file (type png)
+<use drawings/Application_Architecture.png>
+Package pdftex.def Info: drawings/Application_Architecture.png  used on input line 283.
+(pdftex.def)             Requested size: 328.82707pt x 167.28465pt.
+[3 <./drawings/Application_Architecture.png>]
+Package svg Info: Calling Inkscape on input line 316.
 runsystem(inkscape "drawings/KG_Architecture.svg" -D --export-latex --export-filename="KG_Architecture_svg-tex.pdf")...executed.
 
-runsystem(inkscape "drawings/KG_Architecture.svg" -D --export-latex \relax --without-gui --export-pdf="KG_Architecture_svg-tex.pdf")...executed.
-
-
-
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:310: Package svg Error: Inkscape version not detected.
-
-See the svg package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.310 ...pectratio]{drawings/KG_Architecture.svg}}
-                                                  
-It was tried to invoke `inkscape'
-for file "drawings/KG_Architecture.svg"
-but no result was produced. Check the log file
-and set `inkscapeversion=<version>' manually.
-
-runsystem(inkscape "drawings/KG_Architecture.svg" -D --export-latex --export-filename="KG_Architecture_svg-tex.pdf")...executed.
 
 
 Package svg Warning: The export with Inkscape failed for file
 (svg)                `drawings/KG_Architecture.svg'
 (svg)                Troubleshooting: Please check in the log file how
 (svg)                the invocation of Inkscape took place and try to
-(svg)                execute it yourself in the terminal on input line 310.
+(svg)                execute it yourself in the terminal on input line 316.
 
 
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:310: Package svg Error: File `KG_Architecture_svg-tex.pdf' is missing.
+/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:316: Package svg Error: File `KG_Architecture_svg-tex.pdf' is missing.
 
 See the svg package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.310 ...pectratio]{drawings/KG_Architecture.svg}}
+l.316 ...pectratio]{drawings/KG_Architecture.svg}}
                                                   
 Did you run the export with Inkscape? There's no file
 `./svg-inkscape/KG_Architecture_svg-tex.pdf'
 although `drawings/KG_Architecture.svg' was found.
 
 
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:310: Package svg Error: File `KG_Architecture_svg-tex.pdf_tex' is missing.
+/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:316: Package svg Error: File `KG_Architecture_svg-tex.pdf_tex' is missing.
 
 See the svg package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.310 ...pectratio]{drawings/KG_Architecture.svg}}
+l.316 ...pectratio]{drawings/KG_Architecture.svg}}
                                                   
 Did you run the export with Inkscape? There's no file
 `./svg-inkscape/KG_Architecture_svg-tex.pdf_tex'
 although `drawings/KG_Architecture.svg' was found.
 
 
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:310: Package graphics Error: Division by 0.
+/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:316: Package graphics Error: Division by 0.
 
 See the graphics package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.310 ...pectratio]{drawings/KG_Architecture.svg}}
+l.316 ...pectratio]{drawings/KG_Architecture.svg}}
                                                   
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:310: Package graphics Error: Division by 0.
+/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:316: Package graphics Error: Division by 0.
 
 See the graphics package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.310 ...pectratio]{drawings/KG_Architecture.svg}}
+l.316 ...pectratio]{drawings/KG_Architecture.svg}}
                                                   
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 321.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 327.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 321.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 327.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 321.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 327.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 321.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 327.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 321.
+(Font)              <10> on input line 327.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 321.
+(Font)              <7> on input line 327.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 321.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 321.
+(Font)              <5> on input line 327.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 327.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 321.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 327.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:321: Undefined control sequence.
-l.321 \(\lamda
+/Users/dominikpichler/Documents/Git/Uni/Thot_Reviews/output.tex:327: Undefined control sequence.
+l.327 \(\lamda
               \) have been chosen for the data engineering side, including job
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -811,53 +731,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 [4]
-Overfull \hbox (33.17049pt too wide) in paragraph at lines 427--428
+Overfull \hbox (33.17049pt too wide) in paragraph at lines 433--434
 []\T1/lmr/m/n/10 (-20) Quality_Indication  
- []
-
-
-Overfull \hbox (85.71736pt too wide) in paragraph at lines 435--435
-[]|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
- []
-
-
-Overfull \hbox (45.42049pt too wide) in paragraph at lines 436--436
-[]|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
- []
-
-
-Overfull \hbox (14.29398pt too wide) in paragraph at lines 436--437
-\T1/lmr/m/n/10 (-20) 0.608245|  
- []
-
-
-Overfull \hbox (85.71736pt too wide) in paragraph at lines 437--437
-[]|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
- []
-
-
-Overfull \hbox (45.42049pt too wide) in paragraph at lines 438--438
-[]|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
- []
-
-
-Overfull \hbox (14.29398pt too wide) in paragraph at lines 438--439
-\T1/lmr/m/n/10 (-20) 0.475592|  
- []
-
-
-Overfull \hbox (85.71736pt too wide) in paragraph at lines 439--439
-[]|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
- []
-
-
-Overfull \hbox (45.42049pt too wide) in paragraph at lines 440--440
-[]|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
- []
-
-
-Overfull \hbox (14.29398pt too wide) in paragraph at lines 440--441
-\T1/lmr/m/n/10 (-20) 0.642992|  
  []
 
 
@@ -872,22 +747,37 @@ Overfull \hbox (45.42049pt too wide) in paragraph at lines 442--442
 
 
 Overfull \hbox (14.29398pt too wide) in paragraph at lines 442--443
-\T1/lmr/m/n/10 (-20) 0.475699|  
+\T1/lmr/m/n/10 (-20) 0.608245|  
  []
 
 
-Overfull \hbox (85.71736pt too wide) in paragraph at lines 444--444
+Overfull \hbox (85.71736pt too wide) in paragraph at lines 443--443
 []|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
  []
 
 
-Overfull \hbox (45.42049pt too wide) in paragraph at lines 445--445
+Overfull \hbox (45.42049pt too wide) in paragraph at lines 444--444
 []|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
  []
 
 
-Overfull \hbox (14.29398pt too wide) in paragraph at lines 445--446
-\T1/lmr/m/n/10 (-20) 0.701354|  
+Overfull \hbox (14.29398pt too wide) in paragraph at lines 444--445
+\T1/lmr/m/n/10 (-20) 0.475592|  
+ []
+
+
+Overfull \hbox (85.71736pt too wide) in paragraph at lines 445--445
+[]|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
+ []
+
+
+Overfull \hbox (45.42049pt too wide) in paragraph at lines 446--446
+[]|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
+ []
+
+
+Overfull \hbox (14.29398pt too wide) in paragraph at lines 446--447
+\T1/lmr/m/n/10 (-20) 0.642992|  
  []
 
 
@@ -896,94 +786,124 @@ Overfull \hbox (85.71736pt too wide) in paragraph at lines 447--447
  []
 
 
-Overfull \hbox (45.42049pt too wide) in paragraph at lines 447--447
+Overfull \hbox (45.42049pt too wide) in paragraph at lines 448--448
 []|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
  []
 
 
 Overfull \hbox (14.29398pt too wide) in paragraph at lines 448--449
+\T1/lmr/m/n/10 (-20) 0.475699|  
+ []
+
+
+Overfull \hbox (85.71736pt too wide) in paragraph at lines 450--450
+[]|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
+ []
+
+
+Overfull \hbox (45.42049pt too wide) in paragraph at lines 451--451
+[]|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
+ []
+
+
+Overfull \hbox (14.29398pt too wide) in paragraph at lines 451--452
+\T1/lmr/m/n/10 (-20) 0.701354|  
+ []
+
+
+Overfull \hbox (85.71736pt too wide) in paragraph at lines 453--453
+[]|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
+ []
+
+
+Overfull \hbox (45.42049pt too wide) in paragraph at lines 453--453
+[]|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
+ []
+
+
+Overfull \hbox (14.29398pt too wide) in paragraph at lines 454--455
 \T1/lmr/m/n/10 (-20) 0.514512|  
  []
 
 
-Overfull \hbox (85.71736pt too wide) in paragraph at lines 449--449
+Overfull \hbox (85.71736pt too wide) in paragraph at lines 455--455
 []|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
  []
 
 
-Overfull \hbox (45.42049pt too wide) in paragraph at lines 450--450
+Overfull \hbox (45.42049pt too wide) in paragraph at lines 456--456
 []|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
  []
 
 
-Overfull \hbox (14.29398pt too wide) in paragraph at lines 450--451
+Overfull \hbox (14.29398pt too wide) in paragraph at lines 456--457
 \T1/lmr/m/n/10 (-20) 0.594642|  
  []
 
 
-Overfull \hbox (85.71736pt too wide) in paragraph at lines 452--452
+Overfull \hbox (85.71736pt too wide) in paragraph at lines 458--458
 []|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
  []
 
 
-Overfull \hbox (45.42049pt too wide) in paragraph at lines 452--452
+Overfull \hbox (45.42049pt too wide) in paragraph at lines 458--458
 []|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
  []
 
 
-Overfull \hbox (14.29398pt too wide) in paragraph at lines 453--454
+Overfull \hbox (14.29398pt too wide) in paragraph at lines 459--460
 \T1/lmr/m/n/10 (-20) 0.520994|  
  []
 
 
-Overfull \hbox (85.71736pt too wide) in paragraph at lines 456--456
+Overfull \hbox (85.71736pt too wide) in paragraph at lines 462--462
 []|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
  []
 
 
-Overfull \hbox (51.4369pt too wide) in paragraph at lines 456--456
+Overfull \hbox (51.4369pt too wide) in paragraph at lines 462--462
 []|\T1/lmr/m/n/10 (-20) great_cleaning_quality|  
  []
 
 
-Overfull \hbox (14.29398pt too wide) in paragraph at lines 457--458
+Overfull \hbox (14.29398pt too wide) in paragraph at lines 463--464
 \T1/lmr/m/n/10 (-20) 0.988858|  
  []
 
 
-Overfull \hbox (85.71736pt too wide) in paragraph at lines 459--459
+Overfull \hbox (85.71736pt too wide) in paragraph at lines 465--465
 []|\T1/lmr/m/n/10 (-20) indicates_perceived_cleaning_quality|  
  []
 
 
-Overfull \hbox (45.42049pt too wide) in paragraph at lines 459--459
+Overfull \hbox (45.42049pt too wide) in paragraph at lines 465--465
 []|\T1/lmr/m/n/10 (-20) bad_cleaning_quality|  
  []
 
 
-Overfull \hbox (14.29398pt too wide) in paragraph at lines 460--461
+Overfull \hbox (14.29398pt too wide) in paragraph at lines 466--467
 \T1/lmr/m/n/10 (-20) 0.762633|  
  []
 
 [5{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 508.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 514.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 578--578
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 584--584
 []    \T1/lmtt/m/n/10 MATCH (r:Reinigungsmitarbeiter)<-[:CLEANED_BY]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)[] 
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 578.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 584.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [6{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-Overfull \hbox (23.74355pt too wide) in paragraph at lines 578--578
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 584--584
 []    \T1/lmtt/m/n/10 WITH r, em.text AS emotion, count(em) AS emotionCount, count(DISTINCT b) AS totalCleanings[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 619--619
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 625--625
 []    \T1/lmtt/m/n/10 MATCH (a:Appartment)<-[:HAS_BOOKED_APPARTEMENT]-(b:Booking)-[:HAS_REVIEW]->(rev:Review)[] 
  []
 
@@ -1003,17 +923,17 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
  ) 
 Here is how much of TeX's memory you used:
  16549 strings out of 474116
- 276546 string characters out of 5743681
+ 276544 string characters out of 5743681
  1954187 words of memory out of 5000000
  38398 multiletter control sequences out of 15000+600000
  606874 words of font info for 138 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,9n,93p,1726b,634s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on output.pdf (9 pages, 205893 bytes).
+Output written on output.pdf (9 pages, 1521818 bytes).
 PDF statistics:
- 261 PDF objects out of 1000 (max. 8388607)
- 228 compressed objects within 3 object streams
+ 264 PDF objects out of 1000 (max. 8388607)
+ 229 compressed objects within 3 object streams
  50 named destinations out of 1000 (max. 500000)
- 26906 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 26911 words of extra memory for PDF output out of 29859 (max. 10000000)
 
