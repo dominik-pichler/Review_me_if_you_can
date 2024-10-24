@@ -11,9 +11,9 @@ In particular, it aims to identify whether certain apartments or cleaning staff 
 
 ### 1.1.1 Proposed Analytics and Solutions
 For this reason, this project aims to provide a presentation layer (via a `streamlit` application) that displays the following information to the user: 
-- A list of cleaning personal that is linked to the best/worst customer experiences. 
+- A list of cleaning personnel that is linked to the best/worst customer experiences. 
 - A list of apartments that are linked to the best/worst customer experiences.
-- An analysis to identify if certain cleaning people or appartements became a central node in a node of bad customer experiences or form a cluster utilizing utilizing *Deep Modularity Networks*.
+- An analysis to identify if certain cleaning personnel or appartements became a central node in a node of bad customer experiences or form a cluster utilizing utilizing *Deep Modularity Networks*.
 - A list of cleaners that are assumed to have a high record of bad cleaning quality, which is determined through the use of a Graph Embedding-Technique (*TransE*) that learns whether a review indicates a bad cleaning quality. 
 
 Eventually, this insight could then be used to infer insights for improvements in cleaning protocols, appartements and eventually customer satisfaction. 
@@ -35,19 +35,19 @@ In order to achieve the previously defined objectives, the following data has be
 As mentioned before, this is a plattform that works as booking engine for the management of hotels/appartements. In this context, it is used to oversee (and store) all bookings and related activities across all properties.
 The stored data about the bookings can be fetched via a REST-API following the OpenAPI Standard.
 ### 2.1.2 TimeTac
-A plattform that allows to track process times of (cleaning) people. In this instance, it is utilized to track and access data regarding who cleaned each apartment, along with the timing and duration of the cleaning.
+A plattform that allows to track process times of (cleaning) personnel. In this instance, it is utilized to track and access data regarding who cleaned each apartment, along with the timing and duration of the cleaning.
 The stored data about cleaning durations can be fetched via a REST-API following the OpenAPI Standard
 
 ## 2.2 Additionally derived Data
    In addition, the collected reviews (via *Kross Booking*) are automatically translated and pre-evaluated with a sentiment model.   
 ### 2.2.1 Translation
    As the customers of the appartements can (and have been) writing reviews in more than 150 different languages, I had to start out by translating them to a single language.
-   For this purpose, I used the `src/review_process_utils/review_translor.py` script that utilizes the `googleTrans` package to translate all reviews (if possible) to english.
+   For this purpose, I used the `src/review_process_utils/review_translor.py` script that utilizes the `googleTrans` package to translate all reviews (if possible) to English.
 
 
 ### 2.2.2 Sentiment Analysis 
    In addition, for effective review analysis, a sentiment analysis utilizing [DistilRoBERTa](https://huggingface.co/j-hartmann/emotion-english-distilroberta-base)
-   has been implemented to categorize the reviews along [Paul Ekman's 6 basic dimensions](https://www.paulekman.com/wp-content/uploads/2013/07/Basic-Emotions.pdf) + one neural dimension in case no particular emotion has been detected. 
+   has been implemented to categorize the reviews along [Paul Ekman's 6 basic dimensions](https://www.paulekman.com/wp-content/uploads/2013/07/Basic-Emotions.pdf) + one neutral dimension in case no particular emotion has been detected. 
    The corresponding script can be found in `src/Review_Handler.py`
    
 ### 2.2.3 Results
@@ -102,8 +102,8 @@ In the meantime, an adapter (also running in a different *AWS Lamda Container*),
 
 
 After that, the data gets transformed into a graph-structure and then added to an on-premise *Neo4J* Database (dockerized) via the following python script  `src/KG_Building_Handler.py`.
-This script iterates over every row in the ABT, transforms it based on the Ontology below and adds it to Neo4j.
-In case a certain Node already exists (for example, an appartement has already been booked before), the script uses Cypher to determine this and instead of creating a new node of this kind, the already existing ndoe will be used.
+This script iterates over every row in the ABT, transforms it based on the ontology below and adds it to Neo4j.
+In case a certain node already exists (for example, an appartement has already been booked before), the script uses Cypher to determine this and instead of creating a new node of this kind, the already existing node will be used.
 
 
 Through the process outlined above, the Knowledge Graph (KG) is updated daily with the latest available data, allowing it to continuously evolve. 
@@ -234,7 +234,7 @@ In this paper, the authors have compared the following different methods, includ
 Intrigued by their claims, I wanted to test **DMoN** on my own knowledge graph.
 Therefore, with the help of **PyTorch Geometric** I wrote a script to run this method on my own KG.
 This script can be found in `src/GNN_Handler.py`.
- **PyTorch Geometric** was chosen over other Frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
+ **PyTorch Geometric** was chosen over other frameworks like DGl and Graphnets due its high compatability (seamless integration into the PyTorch ecosystem), its dedicated CUDA kernels for sparse data and mini-batch, its strong community support and its research-orientation.
 
 ### 4.2.3 GNN Results
 Unfortunate, due to time constraints, I was not able to finish this part (for now).
